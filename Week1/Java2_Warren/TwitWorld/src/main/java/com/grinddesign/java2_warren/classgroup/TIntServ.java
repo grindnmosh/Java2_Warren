@@ -1,6 +1,7 @@
 package com.grinddesign.java2_warren.classgroup;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Base64;
 import android.util.Log;
@@ -46,7 +47,9 @@ public class TIntServ extends IntentService {
         super("TIntServ");
     }
 
-    //Context feedCon = this;
+    Context feedCon = this;
+
+    FilingCabinet t_File;
 
     //set constants for OAUTH
     static final String twitterAPIKEY = "fQOl6VG5yKkqNegDJL6hz7NnX";
@@ -67,11 +70,15 @@ public class TIntServ extends IntentService {
     String twitterToken;
     String jsonTokenStream;
     StringBuilder builder;
+    String fileName = "string_from_twitter";
 
 
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
+        t_File = FilingCabinet.getInstance();
+
         try {
             //establish connection
             DefaultHttpClient httpclient = new DefaultHttpClient(
@@ -171,7 +178,10 @@ public class TIntServ extends IntentService {
                     e.printStackTrace();
                 }
         }
+        //fileName = feedsObject.toString();
 
-        Log.i("feeder", "arrfighter:" + feedsObject);
+        Log.i("feeder", "arrfighter:" + fileName);
+
+        t_File.writeItUp(feedCon, fileName, feedsObject.toString());
     }
 }
