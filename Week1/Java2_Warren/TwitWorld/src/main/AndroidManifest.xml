@@ -19,12 +19,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.grinddesign.java2_warren.classgroup.TParse" />
-        <service
-            android:name="com.grinddesign.java2_warren.classgroup.TServ"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
+        <service android:name="com.grinddesign.java2_warren.classgroup.TServ"/>
     </application>
 
 </manifest>

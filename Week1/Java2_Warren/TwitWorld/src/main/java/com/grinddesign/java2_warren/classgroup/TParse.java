@@ -212,7 +212,7 @@ public class TParse {
                     }
             }
 
-
+            MainActivity.feedArray = feedsObject;
             return feedsObject;
 
         }
@@ -259,11 +259,13 @@ public class TParse {
                     Log.i("test", "enter a ray img");
                     //assign it to the array for the list adapter
                     MainActivity.testArray.add(posting);
+                    Log.d("this is my array", "arr45: " + MainActivity.testArray.toString());
                     Log.i("test", "enter a ray text");
 
 
                     //Log.d("this is my array", "arr45: " + MainActivity.image.toString());
                 }//reset list adapter and force reload on listview
+
 
                 MainActivity.mainListAdapter.notifyDataSetChanged();
             } catch (JSONException e) {

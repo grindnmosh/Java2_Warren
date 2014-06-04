@@ -1,14 +1,21 @@
 package com.grinddesign.java2_warren.twitworld;
 
 
-
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Messenger;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.grinddesign.java2_warren.classgroup.TParse;
+import com.grinddesign.java2_warren.classgroup.TServ;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -29,8 +36,9 @@ public class MainActivity extends Activity {
 
 
     public static ArrayList<String> testArray;
+    public static JSONArray feedArray;
     public static ArrayAdapter<String> mainListAdapter;
-
+    Context thisHere = this;
     StringBuilder rockTheT;
 
 
@@ -42,12 +50,14 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        feedArray = new JSONArray();
         testArray = new ArrayList<String>();
         final ListView lv = (ListView) findViewById(R.id.tList);
         TParse tp = new TParse(this);
         tp.twitThis();
         Log.i("test", testArray.toString());
 
+        //startService(new Intent(thisHere, TServ.class));
 
 
         //create adapter calling on the dynamic array from FeedMe Class // this will be dynamic data in week 3 from the API
@@ -58,7 +68,7 @@ public class MainActivity extends Activity {
         //load adapter into listview
         lv.setAdapter(mainListAdapter);
 
-        /*Handler tHandle = new Handler() {
+        Handler tHandle = new Handler() {
             public void handler(Message msg) {
                 String responder = null;
 
@@ -74,9 +84,9 @@ public class MainActivity extends Activity {
 
 
         Messenger serviceMessenger = new Messenger(tHandle);
-        Intent intent = new Intent(this, TParse.class);
+        Intent intent = new Intent(thisHere, TServ.class);
         intent.putExtra("messenger", serviceMessenger);
-        startService(intent);*/
+        startService(intent);
 
     }
 
