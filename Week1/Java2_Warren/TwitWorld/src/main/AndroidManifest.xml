@@ -19,7 +19,11 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.grinddesign.java2_warren.classgroup.TServ"/>
+        <service android:name="com.grinddesign.java2_warren.classgroup.TServ" />
+        <service
+            android:name="com.grinddesign.java2_warren.classgroup.TIntServ"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
