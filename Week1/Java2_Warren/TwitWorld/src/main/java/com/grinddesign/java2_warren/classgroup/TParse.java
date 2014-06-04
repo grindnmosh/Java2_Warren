@@ -6,6 +6,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.grinddesign.java2_warren.twitworld.MainActivity;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -32,9 +34,11 @@ import java.io.InputStreamReader;
  * <p/>
  * File:    TParse.Java
  * <p/>
- * Purpose: This is where my app parses my twitter data so that it can be used in the rest of the app
+ * Purpose: This is where my app parses my twitter data so that it can be used in the rest of the app. I took the ASYNC and reformatted to a service.
  */
+
 public class TParse {
+
 
     //set context
     Context feedCon;
@@ -112,7 +116,6 @@ public class TParse {
                 //get response from twitter with the access token and convert it to string and assign to token variable
                 HttpResponse response = httpclient.execute(httppost);
                 HttpEntity entity = response.getEntity();
-
 
                 inputStream = entity.getContent();
                 BufferedReader reader = new BufferedReader(
@@ -255,14 +258,14 @@ public class TParse {
                     //MainActivity.image.add(urlStr);
                     Log.i("test", "enter a ray img");
                     //assign it to the array for the list adapter
-                    //MainActivity.testArray.add(posting);
+                    MainActivity.testArray.add(posting);
                     Log.i("test", "enter a ray text");
 
 
                     //Log.d("this is my array", "arr45: " + MainActivity.image.toString());
                 }//reset list adapter and force reload on listview
 
-                //MainActivity.postAdapter.notifyDataSetChanged();
+                MainActivity.mainListAdapter.notifyDataSetChanged();
             } catch (JSONException e) {
                 Log.e("this is a JSON error", e.getMessage());
                 e.printStackTrace();
@@ -273,7 +276,6 @@ public class TParse {
 
 
     }
-
 
 
 }
