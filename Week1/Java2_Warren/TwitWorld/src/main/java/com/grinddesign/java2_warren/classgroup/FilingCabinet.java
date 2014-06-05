@@ -15,9 +15,9 @@ import java.io.IOException;
  * <p/>
  * Package: com.grinddesign.java2_warren.classgroup
  * <p/>
- * File:    ${File_Name}
+ * File:    FilingCabinet.Java
  * <p/>
- * Purpose: ${Comments_Here}
+ * Purpose: This is where I process the writing of strings to a local file and read thos e files from the specific calls to each.
  */
 public class FilingCabinet {
 
@@ -28,6 +28,7 @@ public class FilingCabinet {
 
     }
 
+    //This is my singleton instantiation
     public static FilingCabinet getInstance() {
         if (t_instance == null) {
             t_instance = new FilingCabinet();
@@ -35,6 +36,9 @@ public class FilingCabinet {
         return t_instance;
     }
 
+    /**
+     * This is my method to save to file
+     */
     public boolean writeItUp(Context context, String fileName, String content) {
         boolean result = false;
         FileOutputStream streamyFile = null;
@@ -53,8 +57,11 @@ public class FilingCabinet {
         return result;
     }
 
+    /**
+     * This is my method to read my previously saved data
+     */
     public String readingIt(Context context, String string) {
-        Log.i("READER SHIT", "ENTRY");
+        Log.i("READER CHECK", "ENTRY");
 
 
         String content = null;

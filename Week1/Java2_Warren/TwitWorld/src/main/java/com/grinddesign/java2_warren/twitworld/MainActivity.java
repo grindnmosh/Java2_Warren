@@ -51,15 +51,19 @@ public class MainActivity extends Activity {
     final HandleMe tHand = new HandleMe(this);
 
 
-
-
-
-
+    /**
+     *
+     * This is my onCreate where I create my adapters for my header and my listview.
+     * I also call on my get data method to start my service.
+     * My connection is also tested here.
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //test my connection
         Connection con = new Connection(this);
         con.connection();
 
@@ -71,16 +75,17 @@ public class MainActivity extends Activity {
 
         final ListView lv = (ListView) findViewById(R.id.tList);
 
+        //create my header
         LayoutInflater inflater = getLayoutInflater();
         ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header_cell, lv,
                 false);
         lv.addHeaderView(header, null, false);
 
+        //call method to start my class
         getData();
 
 
         //create adapter calling on the dynamic array from FeedMe Class // this will be dynamic data in week 3 from the API
-        //mainListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, testArray);
         mainListAdapter = new custAdapter(thisHere, R.layout.item_cell, testArray);
 
 
@@ -88,6 +93,10 @@ public class MainActivity extends Activity {
         lv.setAdapter(mainListAdapter);
 
     }
+
+    /**
+     * This method creates my intent and starts my service.
+     */
     public void getData() {
         Messenger serviceMessenger = new Messenger(tHand);
         Intent intent = new Intent(thisHere, TIntServ.class);
@@ -97,6 +106,11 @@ public class MainActivity extends Activity {
 
     }
 
+    /**
+     * This is my inner class where I run my handler to handle my data that is returned from the file.
+     * I then pass it to the reader which pulls the data from my file.
+     * I turn the string to a JSONArray and Pars it and assign variables.
+     */
     private static class HandleMe extends Handler {
 
         private final WeakReference<MainActivity> activityPass;
@@ -158,6 +172,7 @@ public class MainActivity extends Activity {
                                 String pDate = dtr.toString();
                                 String urlStr = url.toString();
 
+                                //assign variables
                                 image.add(urlStr);
                                 Log.i("test", image.toString());
                                 //assign it to the array for the list adapter
@@ -167,8 +182,8 @@ public class MainActivity extends Activity {
 
 
                                 //Log.d("this is my array", "arr45: " + MainActivity.image.toString());
-                            }//reset list adapter and force reload on listview
-
+                            }
+                            //reset list adapter and force reload on listview
                             mainListAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             Log.e("this is a JSON error", e.getMessage());

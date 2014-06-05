@@ -36,16 +36,11 @@ import java.io.InputStreamReader;
  * <p/>
  * File:    TIntServ.Java
  * <p/>
- * Purpose:
+ * Purpose: This is my service which simply runs my OAUTH and then pulls my JSON data and then passes it to be saved to the local file in the FilingCabinet
  */
 
-/**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
- */
+
+
 public class TIntServ extends IntentService {
     public TIntServ() {
         super("TIntServ");
@@ -77,7 +72,12 @@ public class TIntServ extends IntentService {
     String fileName = "string_from_twitter";
 
 
-
+    /**
+     * This is my Service that contacts my API.
+     * It passes OAUTH and passes the key
+     * It then pulls the JSON data for last 20 posts.
+     * It then writes this to a local file to call on later
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
 
@@ -182,9 +182,14 @@ public class TIntServ extends IntentService {
                     e.printStackTrace();
                 }
         }
-        //fileName = feedsObject.toString();
+
 
         Log.i("feeder", "arrfighter:" + fileName);
+
+        /**
+         * This is where I build my messenger to pass information back.
+         * In this case the file name.
+         */
 
         Messenger messy = (Messenger) intent.getExtras().get("messenger");
 
@@ -202,6 +207,7 @@ public class TIntServ extends IntentService {
 
         Log.i("FILE NAME", msg.obj.toString());
 
+        //This is where I pass the info to my filing cabinet to write to file.
         t_File.writeItUp(feedCon, fileName, feedsObject.toString());
 
 
