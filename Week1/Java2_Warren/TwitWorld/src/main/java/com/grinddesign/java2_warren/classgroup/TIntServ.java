@@ -1,8 +1,12 @@
 package com.grinddesign.java2_warren.classgroup;
 
+import android.app.Activity;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.util.Base64;
 import android.util.Log;
 
@@ -182,6 +186,26 @@ public class TIntServ extends IntentService {
 
         Log.i("feeder", "arrfighter:" + fileName);
 
+        Messenger messy = (Messenger) intent.getExtras().get("messenger");
+
+        Message msg = Message.obtain();
+
+        msg.arg1 = Activity.RESULT_OK;
+
+        msg.obj = fileName;
+
+        try {
+            messy.send(msg);
+        } catch (RemoteException e) {
+            Log.e(getClass().getName(), "Message Exception:", e);
+        }
+
+        Log.i("FILE NAME", msg.obj.toString());
+
         t_File.writeItUp(feedCon, fileName, feedsObject.toString());
+
+
+
+
     }
 }

@@ -3,6 +3,8 @@ package com.grinddesign.java2_warren.classgroup;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -50,6 +52,41 @@ public class FilingCabinet {
 
         return result;
     }
+
+    public String readingIt(Context context, String string) {
+        Log.i("READER SHIT", "ENTRY");
+
+
+        String content = null;
+
+        FileInputStream pullIt = null;
+
+        try {
+            pullIt = context.openFileInput(string);
+            BufferedInputStream buff = new BufferedInputStream(pullIt);
+            byte[] contentB = new byte[1024];
+            int bytesRead = 0;
+            StringBuilder conBuff = new StringBuilder();
+
+            while ((bytesRead = buff.read(contentB)) != -1) {
+                content = new String(contentB, 0, bytesRead);
+                conBuff.append(content);
+            }
+            content = conBuff.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                assert pullIt != null;
+                pullIt.close();
+            } catch (IOException e) {
+                Log.e("CLOSE FILE ERROR", e.toString());
+            }
+        }
+
+        return content;
+    }
+
 }
 
 
