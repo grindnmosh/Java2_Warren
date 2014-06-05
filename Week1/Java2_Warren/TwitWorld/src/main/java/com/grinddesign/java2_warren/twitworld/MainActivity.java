@@ -14,8 +14,11 @@ import android.widget.ListView;
 
 import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 import com.grinddesign.java2_warren.classgroup.TIntServ;
+import com.grinddesign.test.Connection;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -37,11 +40,12 @@ public class MainActivity extends Activity {
 
 
     public static ArrayList<String> testArray;
-    public static JSONArray feedArray;
+    public static ArrayList<String> dateLife;
+    public static ArrayList<String> image;
     public static ArrayAdapter<String> mainListAdapter;
     Context thisHere = this;
-    FilingCabinet x_File;
-    String fileName = "string_from_twitter";
+    static FilingCabinet x_File;
+    static String fileName = "string_from_twitter";
     final HandleMe tHand = new HandleMe(this);
 
 
@@ -52,6 +56,16 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Connection con = new Connection(this);
+        con.connection();
+
+        testArray = new ArrayList<String>();
+        dateLife = new ArrayList<String>();
+        image = new ArrayList<String>();
+
+
+
         final ListView lv = (ListView) findViewById(R.id.tList);
 
         getData();
@@ -59,11 +73,11 @@ public class MainActivity extends Activity {
 
         //create adapter calling on the dynamic array from FeedMe Class // this will be dynamic data in week 3 from the API
         //mainListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, testArray);
-        //postAdapter = new CellAdapter(twitCon, R.layout.item_cell, testArray);
+        mainListAdapter = new custAdapter(thisHere, R.layout.item_cell, testArray);
 
 
         //load adapter into listview
-        //lv.setAdapter(mainListAdapter);
+        lv.setAdapter(mainListAdapter);
 
     }
     public void getData() {
@@ -71,9 +85,11 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(thisHere, TIntServ.class);
         intent.putExtra("messenger", serviceMessenger);
         startService(intent);
+
+
     }
 
-    private class HandleMe extends Handler {
+    private static class HandleMe extends Handler {
 
         private final WeakReference<MainActivity> activityPass;
 
@@ -89,23 +105,86 @@ public class MainActivity extends Activity {
 
                 Object retObj = msg.obj;
                 if (retObj != null) {
+                    x_File = FilingCabinet.getInstance();
                     Log.i("MAIN FILE NAME", msg.obj.toString());
-                    updateListData();
+                    Log.i("ENTER UPDATE", fileName);
+                    Log.i("READ CONTEXT", actOnIt.toString());
+
+                    try {
+                        JSONArray readThatSucker = new JSONArray(x_File.readingIt(actOnIt, fileName));
+                        Log.i("CRAZY", "arrayTime" + readThatSucker.toString());
+                        try {
+                            for (int t=0; t<readThatSucker.length(); t++) {
+                                //reset stringbuilder each time
+                                StringBuilder sb = new StringBuilder();
+                                StringBuilder dtr = new StringBuilder();
+                                StringBuilder url = new StringBuilder();
+                                Log.i("test", "enter a ray");
+
+                                //grab object at point in array that you have cycled to
+                                JSONObject tweetObject = readThatSucker.getJSONObject(t);
+                                //Log.i("test", "enter a ray2");
+                                try {
+                                    //grab the data you want to use
+
+                                    sb.append(tweetObject.getString("text"));
+                                    sb.append("\n");
+                                    url.append(tweetObject.getJSONObject("user").getString("profile_image_url"));
+
+
+                                    dtr.append(tweetObject.getString("created_at"));
+                                    dtr.append("\n");
+
+                                    Log.i("feed bs", sb.toString());
+                                    Log.i("date bs", sb.toString());
+                                    Log.i("image bs", sb.toString());
+                                    //give it some space with a break
+
+                                    Log.i("test", "enter a ray3");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    sb.append("any random text");
+                                }
+                                //load the object pulled into a string
+                                String posting = sb.toString();
+                                String pDate = dtr.toString();
+                                String urlStr = url.toString();
+
+                                image.add(urlStr);
+                                Log.i("test", image.toString());
+                                //assign it to the array for the list adapter
+                                testArray.add(posting);
+                                dateLife.add(pDate);
+                                Log.i("test", "enter a ray text");
+
+
+                                //Log.d("this is my array", "arr45: " + MainActivity.image.toString());
+                            }//reset list adapter and force reload on listview
+
+                            mainListAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            Log.e("this is a JSON error", e.getMessage());
+                            e.printStackTrace();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Log.i("READ FILE", fileName);
                 }
+
             }
 
 
         }
+
     }
 
 
 
     public void updateListData() {
 
-        Log.i("ENTER UPDATE", fileName);
-        Log.i("READ CONTEXT", thisHere.toString());
-        String stringToDisplay = x_File.readingIt(thisHere, fileName);
-        Log.i("READ FILE", fileName);
+
         //Toast.makeText(getBaseContext(), "READ -> " + displayTest, Toast.LENGTH_SHORT).show();
     }
 }

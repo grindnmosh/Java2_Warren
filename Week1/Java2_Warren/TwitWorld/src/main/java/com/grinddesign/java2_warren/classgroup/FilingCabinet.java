@@ -83,7 +83,7 @@ public class FilingCabinet {
                 Log.e("CLOSE FILE ERROR", e.toString());
             }
         }
-
+        Log.i("HOLY WOW", content);
         return content;
     }
 
