@@ -184,7 +184,7 @@ public class MainActivity extends Activity {
                                 //Log.d("this is my array", "arr45: " + MainActivity.image.toString());
                             }
                             //reset list adapter and force reload on listview
-                            mainListAdapter.notifyDataSetChanged();
+                            actOnIt.mainListAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             Log.e("this is a JSON error", e.getMessage());
                             e.printStackTrace();
