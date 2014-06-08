@@ -1,5 +1,8 @@
 package com.grinddesign.java2_warren.twitworld;
 
+import android.app.Activity;
+import android.content.Context;
+
 /**
  * Author:  Robert Warren
  * <p/>
@@ -7,10 +10,15 @@ package com.grinddesign.java2_warren.twitworld;
  * <p/>
  * Package: com.grinddesign.java2_warren.twitworld
  * <p/>
- * File:    ${File_Name}
+ * File:    DetailActivity.java
  * <p/>
- * Purpose: ${Comments_Here}
+ * Purpose: This will be where I create the code for the passed in details from my MainActivity.java and present the details and a rating chart  for each post.
  */
-public class DetailActivity {
+public class DetailActivity extends Activity {
+    Context grabbinIt = this;
 
+    public DetailActivity() {
+
+
+    }
 }

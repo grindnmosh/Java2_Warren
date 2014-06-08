@@ -135,60 +135,7 @@ public class MainActivity extends Activity {
                     try {
                         JSONArray readThatSucker = new JSONArray(x_File.readingIt(actOnIt, fileName));
                         Log.i("CRAZY", "arrayTime" + readThatSucker.toString());
-                        try {
-                            for (int t=0; t<readThatSucker.length(); t++) {
-                                //reset stringbuilder each time
-                                StringBuilder sb = new StringBuilder();
-                                StringBuilder dtr = new StringBuilder();
-                                StringBuilder url = new StringBuilder();
-                                Log.i("test", "enter a ray");
-
-                                //grab object at point in array that you have cycled to
-                                JSONObject tweetObject = readThatSucker.getJSONObject(t);
-                                //Log.i("test", "enter a ray2");
-                                try {
-                                    //grab the data you want to use
-
-                                    sb.append(tweetObject.getString("text"));
-                                    sb.append("\n");
-                                    url.append(tweetObject.getJSONObject("user").getString("profile_image_url"));
-
-
-                                    dtr.append(tweetObject.getString("created_at"));
-                                    dtr.append("\n");
-
-                                    Log.i("feed bs", sb.toString());
-                                    Log.i("date bs", sb.toString());
-                                    Log.i("image bs", sb.toString());
-                                    //give it some space with a break
-
-                                    Log.i("test", "enter a ray3");
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    sb.append("any random text");
-                                }
-                                //load the object pulled into a string
-                                String posting = sb.toString();
-                                String pDate = dtr.toString();
-                                String urlStr = url.toString();
-
-                                //assign variables
-                                image.add(urlStr);
-                                Log.i("test", image.toString());
-                                //assign it to the array for the list adapter
-                                testArray.add(posting);
-                                dateLife.add(pDate);
-                                Log.i("test", "enter a ray text");
-
-
-                                //Log.d("this is my array", "arr45: " + MainActivity.image.toString());
-                            }
-                            //reset list adapter and force reload on listview
-                            actOnIt.mainListAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            Log.e("this is a JSON error", e.getMessage());
-                            e.printStackTrace();
-                        }
+                        updateListData(readThatSucker);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -198,6 +145,68 @@ public class MainActivity extends Activity {
 
             }
 
+        }
+
+        public void updateListData(JSONArray readIt) {
+            try {
+                MainActivity actOnIt = activityPass.get();
+                x_File = FilingCabinet.getInstance();
+                for (int t=0; t<readIt.length(); t++) {
+                    //reset stringbuilder each time
+                    StringBuilder sb = new StringBuilder();
+                    StringBuilder dtr = new StringBuilder();
+                    StringBuilder url = new StringBuilder();
+                    Log.i("test", "enter a ray");
+
+                    //grab object at point in array that you have cycled to
+                    JSONObject tweetObject = readIt.getJSONObject(t);
+                    //Log.i("test", "enter a ray2");
+                    try {
+                        //grab the data you want to use
+
+                        sb.append(tweetObject.getString("text"));
+                        sb.append("\n");
+                        url.append(tweetObject.getJSONObject("user").getString("profile_image_url"));
+
+
+                        dtr.append(tweetObject.getString("created_at"));
+                        dtr.append(
+                                "\n");
+
+                        Log.i("feed bs", sb.toString());
+                        Log.i("date bs", sb.toString());
+                        Log.i("image bs", sb.toString());
+                        //give it some space with a break
+
+                        Log.i("test", "enter a ray3");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        sb.append("any random text");
+                    }
+                    //load the object pulled into a string
+                    String posting = sb.toString();
+                    String pDate = dtr.toString();
+                    String urlStr = url.toString();
+
+                    //assign variables
+                    image.add(urlStr);
+                    Log.i("test", image.toString());
+                    //assign it to the array for the list adapter
+                    testArray.add(posting);
+                    dateLife.add(pDate);
+                    Log.i("test", "enter a ray text");
+
+
+                    //Log.d("this is my array", "arr45: " + MainActivity.image.toString());
+                }
+                //reset list adapter and force reload on listview
+                actOnIt.mainListAdapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                Log.e("this is a JSON error", e.getMessage());
+                e.printStackTrace();
+            }
+
+
 
         }
 
@@ -205,9 +214,5 @@ public class MainActivity extends Activity {
 
 
 
-    public void updateListData() {
 
-
-        //Toast.makeText(getBaseContext(), "READ -> " + displayTest, Toast.LENGTH_SHORT).show();
-    }
 }
