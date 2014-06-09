@@ -82,5 +82,23 @@
             android:layout_alignTop="@+id/feed"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GD Website"
+            android:id="@+id/webGD"
+            android:layout_above="@+id/detDate"
+            android:layout_alignLeft="@+id/detDate"
+            android:layout_alignStart="@+id/detDate" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GD on FB"
+            android:id="@+id/fbGD"
+            android:layout_above="@+id/detDate"
+            android:layout_alignRight="@+id/detDate"
+            android:layout_alignEnd="@+id/detDate" />
     </RelativeLayout>
 </LinearLayout>

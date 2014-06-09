@@ -3,9 +3,11 @@ package com.grinddesign.java2_warren.twitworld;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.loopj.android.image.SmartImageView;
@@ -33,6 +35,28 @@ public class DetailActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        Button webbie = (Button) findViewById(R.id.webGD);
+        Button faceIt = (Button) findViewById(R.id.fbGD);
+
+        webbie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri webpage = Uri.parse("http://www.grind-design.com");
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                startActivity(webIntent);
+            }
+        });
+
+        faceIt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri webpage = Uri.parse("https://www.facebook.com/GrindDesign");
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                startActivity(webIntent);
+            }
+        });
+
 
 
 
@@ -73,6 +97,7 @@ public class DetailActivity extends Activity {
                 e.printStackTrace();
 
             }
+
 
         }
     }
