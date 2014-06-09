@@ -60,9 +60,9 @@ public class FilingCabinet {
     /**
      * This is my method to read my previously saved data
      */
-    public String readingIt(Context context, String string) {
+    public String readingIt(Context context, String string) throws InterruptedException {
         Log.i("READER CHECK", "ENTRY");
-
+        Thread.sleep(5000);
 
         String content = null;
 
@@ -80,12 +80,15 @@ public class FilingCabinet {
                 conBuff.append(content);
             }
             content = conBuff.toString();
+            Log.i("traveler", content);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            Log.i("test", "test");
             try {
-                assert pullIt != null;
-                pullIt.close();
+                if (pullIt != null) {
+                    pullIt.close();
+                }
             } catch (IOException e) {
                 Log.e("CLOSE FILE ERROR", e.toString());
             }

@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
     Context thisHere = this;
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
-    //final HandleMe tHand = new HandleMe(this);
+    final HandleMe tHand = new HandleMe(this);
 
 
     /**
@@ -100,7 +100,6 @@ public class MainActivity extends Activity {
      * This method creates my intent and starts my service.
      */
     public void getData() {
-        HandleMe tHand = new HandleMe(this);
         Messenger serviceMessenger = new Messenger(tHand);
         Intent intent = new Intent(thisHere, TIntServ.class);
         intent.putExtra("messenger", serviceMessenger);
@@ -136,9 +135,17 @@ public class MainActivity extends Activity {
                     Log.i("READ CONTEXT", actOnIt.toString());
 
                     try {
-                        JSONArray readThatSucker = new JSONArray(x_File.readingIt(actOnIt, fileName));
-                        Log.i("CRAZY", "arrayTime" + readThatSucker.toString());
-                        updateListData(readThatSucker);
+                        JSONArray readThatSucker = null;
+                        try {
+                            readThatSucker = new JSONArray(x_File.readingIt(actOnIt, fileName));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (readThatSucker != null) {
+                            Log.i("CRAZY", "arrayTime" + readThatSucker.toString());
+                            updateListData(readThatSucker);
+                        }
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
