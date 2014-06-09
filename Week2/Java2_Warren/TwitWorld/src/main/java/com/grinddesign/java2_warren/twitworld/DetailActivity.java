@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 /**
  * Author:  Robert Warren
@@ -26,10 +27,11 @@ public class DetailActivity extends Activity {
 
 
 
-        Intent i = getIntent();
-        // getting attached intent data
-        String fileName = i.getStringExtra("file name");
-        // displaying selected product name
+        Intent intent = getIntent();
+        if (null != intent) {
+            String stringData= intent.getStringExtra("file name");
+            Log.i("Passed", stringData);
+        }
 
     }
 }

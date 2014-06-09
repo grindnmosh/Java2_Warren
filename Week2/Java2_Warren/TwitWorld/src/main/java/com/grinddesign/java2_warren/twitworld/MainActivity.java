@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
     public static ArrayList<String> dateLife;
     public static ArrayList<String> image;
     public static ArrayAdapter<String> mainListAdapter;
-
+    JSONArray goldenArray = new JSONArray();
     Context thisHere = this;
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
@@ -68,6 +68,7 @@ public class MainActivity extends Activity {
         //test my connection
         Connection con = new Connection(this);
         con.connection();
+
 
         testArray = new ArrayList<String>();
         dateLife = new ArrayList<String>();
@@ -97,16 +98,7 @@ public class MainActivity extends Activity {
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 
-        lv.setOnItemClickListener(new ListView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("click me", "success");
-                Intent detailPass = new Intent(thisHere, DetailActivity.class);
-
-                detailPass.putExtra("file name", String.valueOf(fileName));
-                startActivity(detailPass);
-            }
-        });
+        lv.setOnItemClickListener(onListClick);
 
         //call method to start my class
         getData();
@@ -130,8 +122,13 @@ public class MainActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent detailPass = new Intent(thisHere, DetailActivity.class);
+            try {
+                String goldenObj = goldenArray.getString(position -1);
+                detailPass.putExtra("file name", goldenObj);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-            detailPass.putExtra("file name", String.valueOf(fileName));
             startActivity(detailPass);
         }
     };
@@ -176,6 +173,7 @@ public class MainActivity extends Activity {
                         if (readThatSucker != null) {
                             Log.i("CRAZY", "arrayTime" + readThatSucker.toString());
                             updateListData(readThatSucker);
+                            actOnIt.goldenArray = readThatSucker;
                         }
 
 
@@ -211,8 +209,7 @@ public class MainActivity extends Activity {
 
 
                         dtr.append(tweetObject.getString("created_at"));
-                        dtr.append(
-                                "\n");
+                        dtr.append("\n");
 
                         Log.i("feed bs", sb.toString());
                         Log.i("date bs", sb.toString());
