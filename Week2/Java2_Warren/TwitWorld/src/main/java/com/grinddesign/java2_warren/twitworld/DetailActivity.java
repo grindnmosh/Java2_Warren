@@ -90,7 +90,7 @@ public class DetailActivity extends Activity {
                 retweet.setText("Retweeted " + rt + " times");
                 TextView tId = (TextView) findViewById(R.id.twitId);
                 tId.setText("post ID = " + ti);
-                TextView locale = (TextView) findViewById(R.id.favCnt);
+                TextView locale = (TextView) findViewById(R.id.usrInfo);
                 locale.setText(name + " is from " + loc);
 
             } catch (JSONException e) {

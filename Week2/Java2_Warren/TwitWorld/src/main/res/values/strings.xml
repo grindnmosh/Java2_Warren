@@ -7,5 +7,8 @@
     <string name="welcome">Welcome Follower</string>
     <string name="bold_name">GrindNMosh\'s Twit World!</string>
     <string name="instructions">Select a post for more detailed info</string>
+    <string name="webButt">GD Website</string>
+    <string name="fbButt">FB on GD</string>
+
 
 </resources>
