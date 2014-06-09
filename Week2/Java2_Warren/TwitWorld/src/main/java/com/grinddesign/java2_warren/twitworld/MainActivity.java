@@ -75,7 +75,8 @@ public class MainActivity extends Activity {
 
         final ListView lv = (ListView) findViewById(R.id.tList);
 
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+
 
         //create my header
         LayoutInflater inflater = getLayoutInflater();
@@ -92,6 +93,9 @@ public class MainActivity extends Activity {
 
         //load adapter into listview
         lv.setAdapter(mainListAdapter);
+
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
 
         lv.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
@@ -131,6 +135,8 @@ public class MainActivity extends Activity {
             startActivity(detailPass);
         }
     };
+
+
 
 
 
