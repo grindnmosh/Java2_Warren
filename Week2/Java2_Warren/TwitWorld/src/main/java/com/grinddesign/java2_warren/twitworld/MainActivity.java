@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
     Context thisHere = this;
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
-    final HandleMe tHand = new HandleMe(this);
+    //final HandleMe tHand = new HandleMe(this);
 
 
     /**
@@ -81,8 +81,7 @@ public class MainActivity extends Activity {
                 false);
         lv.addHeaderView(header, null, false);
 
-        //call method to start my class
-        getData();
+
 
 
         //create adapter calling on the dynamic array from FeedMe Class // this will be dynamic data in week 3 from the API
@@ -92,12 +91,16 @@ public class MainActivity extends Activity {
         //load adapter into listview
         lv.setAdapter(mainListAdapter);
 
+        //call method to start my class
+        getData();
+
     }
 
     /**
      * This method creates my intent and starts my service.
      */
     public void getData() {
+        HandleMe tHand = new HandleMe(this);
         Messenger serviceMessenger = new Messenger(tHand);
         Intent intent = new Intent(thisHere, TIntServ.class);
         intent.putExtra("messenger", serviceMessenger);
