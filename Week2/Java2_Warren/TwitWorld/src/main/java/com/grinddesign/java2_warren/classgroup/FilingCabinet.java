@@ -62,7 +62,7 @@ public class FilingCabinet {
      */
     public String readingIt(Context context, String string) throws InterruptedException {
         Log.i("READER CHECK", "ENTRY");
-        Thread.sleep(4500);
+        Thread.sleep(5000);
 
         String content = null;
 

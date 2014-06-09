@@ -11,27 +11,16 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <view
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            class="com.loopj.android.image.SmartImageView"
-            android:id="@+id/my_image"
-            android:layout_marginLeft="17dp"
-            android:layout_marginBottom="57dp"
-            android:layout_above="@+id/detDate"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
         <TextView
             android:layout_width="240dp"
-            android:layout_height="100dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_height="160dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Feed"
             android:id="@+id/feed"
-            android:layout_marginRight="16dp"
-            android:layout_alignTop="@+id/my_image"
+            android:layout_above="@+id/detDate"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="33dp" />
 
         <TextView
             android:layout_width="300dp"
@@ -49,20 +38,21 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="retweet_count"
             android:id="@+id/retwtCnt"
-            android:layout_centerVertical="true"
+            android:layout_above="@+id/twitId"
             android:layout_alignLeft="@+id/detDate"
-            android:layout_alignStart="@+id/detDate" />
+            android:layout_alignStart="@+id/detDate"
+            android:layout_marginBottom="26dp" />
 
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="user - followers_count"
-            android:id="@+id/folCnt"
-            android:layout_below="@+id/retwtCnt"
+            android:text="id"
+            android:id="@+id/twitId"
+            android:layout_above="@+id/favCnt"
             android:layout_alignLeft="@+id/retwtCnt"
             android:layout_alignStart="@+id/retwtCnt"
-            android:layout_marginTop="28dp" />
+            android:layout_marginBottom="26dp" />
 
         <TextView
             android:layout_width="300dp"
@@ -70,10 +60,10 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="user - favourites_count"
             android:id="@+id/favCnt"
-            android:layout_marginTop="35dp"
-            android:layout_below="@+id/folCnt"
-            android:layout_alignLeft="@+id/folCnt"
-            android:layout_alignStart="@+id/folCnt" />
+            android:layout_above="@+id/rateFeed"
+            android:layout_alignLeft="@+id/twitId"
+            android:layout_alignStart="@+id/twitId"
+            android:layout_marginBottom="43dp" />
 
         <RatingBar
             android:layout_width="wrap_content"
@@ -83,5 +73,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="27dp"
             android:focusableInTouchMode="false" />
+
+        <view
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            class="com.loopj.android.image.SmartImageView"
+            android:id="@+id/my_image"
+            android:layout_alignTop="@+id/feed"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 </LinearLayout>
