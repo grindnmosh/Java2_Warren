@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 import com.grinddesign.java2_warren.classgroup.TIntServ;
@@ -66,8 +67,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //test my connection
-        Connection con = new Connection(this);
-        con.connection();
+
 
 
         testArray = new ArrayList<String>();
@@ -99,9 +99,27 @@ public class MainActivity extends Activity {
 
 
         lv.setOnItemClickListener(onListClick);
+        if( savedInstanceState != null ) {
+            String passerBy = savedInstanceState.getString("message");
+            try {
+                JSONArray readThatSucker = new JSONArray(passerBy);
+                Log.i("readItAgain", readThatSucker.toString());
+                tHand.updateListData(readThatSucker);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(this, passerBy, Toast.LENGTH_LONG).show();
+        }
+        else {
+            Connection con = new Connection(this);
+            con.connection();
+            //call method to start my class
+            getData();
+        }
 
-        //call method to start my class
-        getData();
+
+
+
 
     }
 
@@ -135,6 +153,11 @@ public class MainActivity extends Activity {
 
 
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("message", goldenArray.toString());
+    }
 
 
     /**
@@ -173,7 +196,7 @@ public class MainActivity extends Activity {
                         if (readThatSucker != null) {
                             Log.i("CRAZY", "arrayTime" + readThatSucker.toString());
                             updateListData(readThatSucker);
-                            actOnIt.goldenArray = readThatSucker;
+
                         }
 
 
@@ -189,6 +212,7 @@ public class MainActivity extends Activity {
         public void updateListData(JSONArray readIt) {
             try {
                 MainActivity actOnIt = activityPass.get();
+                actOnIt.goldenArray = readIt;
                 x_File = FilingCabinet.getInstance();
                 for (int t=0; t<readIt.length(); t++) {
                     //reset stringbuilder each time

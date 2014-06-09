@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="@string/webButt"
             android:id="@+id/webGD"
-          android:layout_below="@+id/feed"
+            android:layout_below="@+id/feed"
             android:layout_alignLeft="@+id/detDate"
             android:layout_alignStart="@+id/detDate"/>
 
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:text="@string/fbButt"
             android:id="@+id/fbGD"
-          android:layout_below="@+id/feed"
+            android:layout_below="@+id/feed"
             android:layout_alignRight="@+id/detDate"
             android:layout_alignEnd="@+id/detDate"/>
     </RelativeLayout>
