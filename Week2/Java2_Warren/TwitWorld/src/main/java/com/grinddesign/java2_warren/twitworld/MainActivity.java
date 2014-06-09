@@ -10,7 +10,9 @@ import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -37,7 +39,6 @@ import java.util.ArrayList;
  * Purpose: This is where all the action happens to actually present the application on the device screen and to direct the traffic of what needs to run and when.
  */
 
-
 public class MainActivity extends Activity {
 
 
@@ -45,6 +46,7 @@ public class MainActivity extends Activity {
     public static ArrayList<String> dateLife;
     public static ArrayList<String> image;
     public static ArrayAdapter<String> mainListAdapter;
+
     Context thisHere = this;
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
@@ -71,9 +73,9 @@ public class MainActivity extends Activity {
         dateLife = new ArrayList<String>();
         image = new ArrayList<String>();
 
-
-
         final ListView lv = (ListView) findViewById(R.id.tList);
+
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         //create my header
         LayoutInflater inflater = getLayoutInflater();
@@ -91,6 +93,17 @@ public class MainActivity extends Activity {
         //load adapter into listview
         lv.setAdapter(mainListAdapter);
 
+        lv.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("click me", "success");
+                Intent detailPass = new Intent(thisHere, DetailActivity.class);
+
+                detailPass.putExtra("file name", String.valueOf(fileName));
+                startActivity(detailPass);
+            }
+        });
+
         //call method to start my class
         getData();
 
@@ -107,6 +120,19 @@ public class MainActivity extends Activity {
 
 
     }
+
+    private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent detailPass = new Intent(thisHere, DetailActivity.class);
+
+            detailPass.putExtra("file name", String.valueOf(fileName));
+            startActivity(detailPass);
+        }
+    };
+
+
 
     /**
      * This is my inner class where I run my handler to handle my data that is returned from the file.
@@ -156,7 +182,6 @@ public class MainActivity extends Activity {
             }
 
         }
-
         public void updateListData(JSONArray readIt) {
             try {
                 MainActivity actOnIt = activityPass.get();

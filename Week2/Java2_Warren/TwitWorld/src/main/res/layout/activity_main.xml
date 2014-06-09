@@ -3,12 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
+
 
 
         <ListView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tList"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
     </LinearLayout>

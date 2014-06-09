@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
+    tools:context=".MainActivity"
     android:weightSum="1">
 
     <RelativeLayout
@@ -37,16 +39,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Date"
             android:id="@+id/detDate"
-            android:layout_above="@+id/textView4"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="17dp" />
+            android:layout_marginBottom="26dp"
+            android:layout_above="@+id/retwtCnt"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Something"
-            android:id="@+id/textView4"
+            android:text="retweet_count"
+            android:id="@+id/retwtCnt"
             android:layout_centerVertical="true"
             android:layout_alignLeft="@+id/detDate"
             android:layout_alignStart="@+id/detDate" />
@@ -57,10 +59,10 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="user - followers_count"
             android:id="@+id/folCnt"
-            android:layout_marginTop="19dp"
-            android:layout_below="@+id/textView4"
-            android:layout_alignLeft="@+id/textView4"
-            android:layout_alignStart="@+id/textView4" />
+            android:layout_below="@+id/retwtCnt"
+            android:layout_alignLeft="@+id/retwtCnt"
+            android:layout_alignStart="@+id/retwtCnt"
+            android:layout_marginTop="28dp" />
 
         <TextView
             android:layout_width="300dp"
@@ -68,21 +70,10 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="user - favourites_count"
             android:id="@+id/favCnt"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="35dp"
             android:layout_below="@+id/folCnt"
             android:layout_alignLeft="@+id/folCnt"
             android:layout_alignStart="@+id/folCnt" />
-
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="retweet_count"
-            android:id="@+id/retwtCnt"
-            android:layout_marginTop="24dp"
-            android:layout_below="@+id/favCnt"
-            android:layout_alignLeft="@+id/favCnt"
-            android:layout_alignStart="@+id/favCnt" />
 
         <RatingBar
             android:layout_width="wrap_content"

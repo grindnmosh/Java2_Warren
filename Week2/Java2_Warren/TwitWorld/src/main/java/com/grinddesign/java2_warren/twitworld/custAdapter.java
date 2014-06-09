@@ -42,12 +42,13 @@ public class custAdapter extends ArrayAdapter<String> {
      * I assign to 3 different fields
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         Log.i("cust", "adapter");
 
         String i = MainActivity.image.get(position);
         String s = arrayLister.get(position);
         String d = MainActivity.dateLife.get(position);
+
 
 
         //this is my code to inflate the custom layout
@@ -65,6 +66,8 @@ public class custAdapter extends ArrayAdapter<String> {
         //this is to assign the date to the proper field
         TextView tvDate  = (TextView) view.findViewById(R.id.daters);
         tvDate.setText(d);
+
+
 
 
         Log.i("cust", "ready to return");

@@ -2,6 +2,8 @@ package com.grinddesign.java2_warren.twitworld;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
 /**
  * Author:  Robert Warren
@@ -17,8 +19,17 @@ import android.content.Context;
 public class DetailActivity extends Activity {
     Context grabbinIt = this;
 
-    public DetailActivity() {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
 
+
+
+        Intent i = getIntent();
+        // getting attached intent data
+        String fileName = i.getStringExtra("file name");
+        // displaying selected product name
 
     }
 }
