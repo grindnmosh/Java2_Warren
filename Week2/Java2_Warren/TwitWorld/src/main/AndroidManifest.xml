@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailActivity"
-            android:label="Detail"/>
+            android:label="Detail"
+            android:screenOrientation="portrait" />
         <service
             android:name="com.grinddesign.java2_warren.classgroup.TIntServ"
             android:exported="false" >

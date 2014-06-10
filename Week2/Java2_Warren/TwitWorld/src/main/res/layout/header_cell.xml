@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/bold_name"
-            android:id="@+id/textView2"
+            android:id="@+id/detDate"
             android:layout_below="@+id/feed"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
@@ -36,7 +36,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/instructions"
             android:id="@+id/detDate"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/detDate"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:textColor="#ff2b2fc9" />
