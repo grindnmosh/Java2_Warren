@@ -1,7 +1,6 @@
 package com.grinddesign.java2_warren.twitworld;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,8 +27,6 @@ import org.json.JSONObject;
  * Purpose: This will be where I create the code for the passed in details from my MainActivity.java and present the details and a rating chart  for each post.
  */
 public class DetailActivity extends Activity {
-    Context grabbinIt = this;
-    View view;
     private TextView txtRatingValue;
     JSONObject breakDown = null;
 
@@ -109,15 +106,26 @@ public class DetailActivity extends Activity {
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rateFeed);
         txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
 
-        //if rating value is changed,
-        //display the current rating value in the result (textview) automatically
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
 
                 txtRatingValue.setText(String.valueOf(rating));
+                final String result = String.valueOf(rating);
+                Button sub = (Button) findViewById(R.id.sub);
+                sub.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",result);
+                        setResult(RESULT_OK,returnIntent);
+                        finish();
+
+                    }
+                });
 
             }
         });
     }
+
 }

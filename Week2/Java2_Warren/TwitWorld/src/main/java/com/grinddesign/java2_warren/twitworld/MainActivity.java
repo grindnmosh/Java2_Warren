@@ -2,7 +2,9 @@ package com.grinddesign.java2_warren.twitworld;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 import com.grinddesign.java2_warren.classgroup.TIntServ;
@@ -66,7 +67,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //test my connection
+
 
 
 
@@ -99,6 +100,7 @@ public class MainActivity extends Activity {
 
 
         lv.setOnItemClickListener(onListClick);
+
         if( savedInstanceState != null ) {
             String passerBy = savedInstanceState.getString("message");
             try {
@@ -108,9 +110,10 @@ public class MainActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Toast.makeText(this, passerBy, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, passerBy, Toast.LENGTH_LONG).show();
         }
         else {
+            //test my connection
             Connection con = new Connection(this);
             con.connection();
             //call method to start my class
@@ -123,6 +126,8 @@ public class MainActivity extends Activity {
 
     }
 
+
+
     /**
      * This method creates my intent and starts my service.
      */
@@ -133,6 +138,26 @@ public class MainActivity extends Activity {
         startService(intent);
 
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK){
+                String result = data.getStringExtra("result");
+                String title = "Robert's Tweet Rating by you";
+
+
+                AlertDialog.Builder displayResult = new AlertDialog.Builder(this);
+                displayResult.setTitle(title).setMessage("You Rated this tweet a " + result + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                displayResult.create();
+                displayResult.show();
+            }
+        }
     }
 
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
@@ -147,7 +172,7 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
             }
 
-            startActivity(detailPass);
+            startActivityForResult(detailPass, 1);
         }
     };
 

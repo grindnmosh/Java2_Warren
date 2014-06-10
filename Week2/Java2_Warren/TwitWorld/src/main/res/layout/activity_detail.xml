@@ -63,14 +63,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rateFeed"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="30dp"
             android:numStars="5"
             android:stepSize="0.2"
             android:rating="0.0"
             android:focusableInTouchMode="false"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/usrInfo"
-            android:layout_alignStart="@+id/usrInfo" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <view
             android:layout_width="80dp"
@@ -104,8 +104,18 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/txtRatingValue"
-            android:layout_alignBottom="@+id/rateFeed"
+            android:layout_alignBottom="@+id/sub"
             android:layout_alignRight="@+id/feed"
-            android:layout_alignEnd="@+id/feed" />
+            android:layout_alignEnd="@+id/feed"
+            android:layout_toRightOf="@+id/sub" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/sub"
+            android:layout_alignTop="@+id/rateFeed"
+            android:layout_toRightOf="@+id/rateFeed" />
     </RelativeLayout>
 </LinearLayout>
