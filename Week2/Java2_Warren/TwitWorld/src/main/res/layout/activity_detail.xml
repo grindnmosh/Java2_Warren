@@ -54,10 +54,10 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/usrInfo"
+            android:layout_marginBottom="22dp"
             android:layout_above="@+id/rateFeed"
             android:layout_alignLeft="@+id/twitId"
-            android:layout_alignStart="@+id/twitId"
-            android:layout_marginBottom="43dp" />
+            android:layout_alignStart="@+id/twitId" />
 
         <RatingBar
             android:layout_width="wrap_content"
