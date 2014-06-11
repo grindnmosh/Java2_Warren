@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
     public static ArrayList<String> testArray;
     public static ArrayList<String> dateLife;
     public static ArrayList<String> image;
+    public static ArrayList<String> twitId;
     public static ArrayAdapter<String> mainListAdapter;
     JSONArray goldenArray = new JSONArray();
     Context thisHere = this;
@@ -70,6 +71,7 @@ public class MainActivity extends Activity {
         testArray = new ArrayList<String>();
         dateLife = new ArrayList<String>();
         image = new ArrayList<String>();
+        twitId = new ArrayList<String>();
 
         final ListView lv = (ListView) findViewById(R.id.tList);
 
@@ -258,6 +260,7 @@ public class MainActivity extends Activity {
                     StringBuilder sb = new StringBuilder();
                     StringBuilder dtr = new StringBuilder();
                     StringBuilder url = new StringBuilder();
+                    StringBuilder tId = new StringBuilder();
                     Log.i("test", "enter a ray");
 
                     //grab object at point in array that you have cycled to
@@ -269,14 +272,13 @@ public class MainActivity extends Activity {
                         sb.append(tweetObject.getString("text"));
                         sb.append("\n");
                         url.append(tweetObject.getJSONObject("user").getString("profile_image_url"));
-
-
                         dtr.append(tweetObject.getString("created_at"));
-                        dtr.append("\n");
+                        tId.append(tweetObject.getString("id"));
 
                         Log.i("feed bs", sb.toString());
-                        Log.i("date bs", sb.toString());
-                        Log.i("image bs", sb.toString());
+                        Log.i("date bs", url.toString());
+                        Log.i("image bs", dtr.toString());
+                        Log.i("id bs", tId.toString());
                         //give it some space with a break
 
                         Log.i("test", "enter a ray3");
@@ -288,6 +290,7 @@ public class MainActivity extends Activity {
                     String posting = sb.toString();
                     String pDate = dtr.toString();
                     String urlStr = url.toString();
+                    String idStr = tId.toString();
 
                     //assign variables
                     image.add(urlStr);
@@ -295,6 +298,9 @@ public class MainActivity extends Activity {
                     //assign it to the array for the list adapter
                     testArray.add(posting);
                     dateLife.add(pDate);
+                    Log.i("test", dateLife.toString());
+                    twitId.add(idStr);
+
                     Log.i("test", "enter a ray text");
 
 

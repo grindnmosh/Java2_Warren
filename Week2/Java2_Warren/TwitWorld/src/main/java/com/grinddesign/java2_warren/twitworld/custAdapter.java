@@ -48,6 +48,7 @@ public class custAdapter extends ArrayAdapter<String> {
         String i = MainActivity.image.get(position);
         String s = arrayLister.get(position);
         String d = MainActivity.dateLife.get(position);
+        String id = MainActivity.twitId.get(position);
 
 
 
@@ -66,6 +67,9 @@ public class custAdapter extends ArrayAdapter<String> {
         //this is to assign the date to the proper field
         TextView tvDate  = (TextView) view.findViewById(R.id.daters);
         tvDate.setText(d);
+
+        TextView tvId  = (TextView) view.findViewById(R.id.idView);
+        tvId.setText("Twit Id: " + id);
 
 
 
