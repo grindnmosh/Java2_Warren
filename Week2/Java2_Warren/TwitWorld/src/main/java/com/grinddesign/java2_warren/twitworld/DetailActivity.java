@@ -124,7 +124,7 @@ public class DetailActivity extends Activity {
         try {
             Log.i("WTF1", "enter a try");
             breakDown = new JSONObject(string);
-            Log.i("WTF1", breakDown.toString());
+            Log.i("BREAKDOWN", breakDown.toString());
             String url = breakDown.getJSONObject("user").getString("profile_image_url");
             String f = breakDown.getString("text");
             String d = breakDown.getString("created_at");
@@ -132,6 +132,9 @@ public class DetailActivity extends Activity {
             String ti = breakDown.getString("id");
             String name = breakDown.getJSONObject("user").getString("name");
             String loc = breakDown.getJSONObject("user").getString("location");
+            Log.i("did it get here", loc);
+            String exUrl = breakDown.getJSONObject("entities").getJSONArray("urls").getJSONObject(0).getString("expanded_url");
+            Log.i("EXPANDED URL", exUrl);
 
 
 
@@ -140,6 +143,8 @@ public class DetailActivity extends Activity {
             myImage.setImageUrl(url);
             TextView feeder = (TextView) findViewById(R.id.feed);
             feeder.setText(f);
+            TextView expandedUrl = (TextView) findViewById(R.id.url);
+            expandedUrl.setText(exUrl);
             TextView dately = (TextView) findViewById(R.id.detDate);
             dately.setText(d);
             TextView retweet = (TextView) findViewById(R.id.retwtCnt);

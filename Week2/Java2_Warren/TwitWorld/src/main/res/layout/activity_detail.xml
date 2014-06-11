@@ -63,7 +63,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rateFeed"
-            android:layout_marginBottom="30dp"
             android:numStars="5"
             android:stepSize="0.2"
             android:rating="0.0"
@@ -117,5 +116,16 @@
             android:id="@+id/sub"
             android:layout_alignTop="@+id/rateFeed"
             android:layout_toRightOf="@+id/rateFeed" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/url"
+            android:layout_below="@+id/webGD"
+            android:layout_alignLeft="@+id/webGD"
+            android:layout_alignStart="@+id/webGD"
+            android:layout_alignRight="@+id/txtRatingValue"
+            android:layout_alignEnd="@+id/txtRatingValue" />
     </RelativeLayout>
 </LinearLayout>
