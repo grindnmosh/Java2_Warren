@@ -25,7 +25,7 @@ import org.json.JSONObject;
  * <p/>
  * File:    DetailActivity.java
  * <p/>
- * Purpose: This will be where I create the code for the passed in details from my MainActivity.java and present the details and a rating chart  for each post.
+ * Purpose: This will be where I create the code for the passed in details from my MainActivity.java and present the details and a rating chart that returns data back to the main activity for each post.
  */
 public class DetailActivity extends Activity {
     private TextView txtRatingValue;
@@ -37,21 +37,32 @@ public class DetailActivity extends Activity {
 
         setContentView(R.layout.activity_detail);
 
+        //check to see if there is a saved instance
+        //if there is a saved instance
         if (savedInstanceState != null) {
+            //grab saved instance data
             String reloadString = savedInstanceState.getString("message");
 
+            //check orientation 1 = Portrait 2 = Landscape
+            Log.i("ORIENTATION IS", String.valueOf(getResources().getConfiguration().orientation));
+            //if landscape load this
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 setContentView(R.layout.activity_detailland);
                 loadItUp(reloadString);
             }
+            //if portrait load this
             else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 setContentView(R.layout.activity_detail);
                 loadItUp(reloadString);
             }
         }
+        //if no saved instance
         else {
+            //grab passed intent
             Intent intent = getIntent();
+            //if intent was passed then do this otherwise do nothing
             if (null != intent) {
+                //grab string fom intent
                 String stringData = intent.getStringExtra("file name");
 
                 Log.i("Passed", stringData);
@@ -68,10 +79,13 @@ public class DetailActivity extends Activity {
         }
 
 
-
+        /**
+         * These are the onclick methods used to call each of the 2 implicit intents.
+         */
         Button webbie = (Button) findViewById(R.id.webGD);
         Button faceIt = (Button) findViewById(R.id.fbGD);
 
+        //implicit intent #1
         webbie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +95,7 @@ public class DetailActivity extends Activity {
             }
         });
 
+        //implicit intent #2
         faceIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +117,9 @@ public class DetailActivity extends Activity {
 
     }
 
+    /**
+     * Method to parse passed in data when called on
+     */
     public void loadItUp(String string) {
         try {
             Log.i("WTF1", "enter a try");
@@ -139,6 +157,9 @@ public class DetailActivity extends Activity {
         }
     }
 
+    /**
+     * This Method handles the auto saving of the current instance to handle device stops/reloads so as not to reload data from web everytime
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -146,21 +167,29 @@ public class DetailActivity extends Activity {
     }
 
 
+    /**
+     * Method to listen rating bar and return rating when submitted back to the main application view
+     */
     public void addListenerOnRatingBar() {
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rateFeed);
         txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
 
+        //listens to rating change
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
 
+                //displays rating in text to right of the button
                 txtRatingValue.setText(String.valueOf(rating));
+
+                //declare rating into a string
                 final String result = String.valueOf(rating);
                 Button sub = (Button) findViewById(R.id.sub);
                 sub.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //pass data back
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",result);
                         setResult(RESULT_OK,returnIntent);

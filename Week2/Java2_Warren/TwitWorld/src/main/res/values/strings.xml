@@ -10,5 +10,6 @@
     <string name="webButt">GD Website</string>
     <string name="fbButt">FB on GD</string>
     <string name="det_name">Twit Details</string>
+    <string name="submit">Submit</string>
 
 </resources>

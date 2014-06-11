@@ -97,8 +97,12 @@ public class MainActivity extends Activity {
 
         lv.setOnItemClickListener(onListClick);
 
+        //check for saved instance
+        //if there is a saved instance
         if( savedInstanceState != null ) {
+            //data from saved instance
             String passerBy = savedInstanceState.getString("message");
+            Log.i("SAVED INSTANCE", passerBy);
             try {
                 JSONArray readThatSucker = new JSONArray(passerBy);
                 Log.i("readItAgain", readThatSucker.toString());
@@ -108,10 +112,12 @@ public class MainActivity extends Activity {
             }
             //Toast.makeText(this, passerBy, Toast.LENGTH_LONG).show();
         }
+        //if no saved instance
         else {
             //test my connection
             Connection con = new Connection(this);
             con.connection();
+
             //call method to start my class
             getData();
         }
@@ -136,13 +142,16 @@ public class MainActivity extends Activity {
 
     }
 
+    /**
+     * This method gathers the information passed back about the tweet rating from the detail page
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK){
                 String result = data.getStringExtra("result");
                 String title = "Robert's Tweet Rating by you";
 
-
+                //create alert to display info passed back in the format of my choosing
                 AlertDialog.Builder displayResult = new AlertDialog.Builder(this);
                 displayResult.setTitle(title).setMessage("You Rated this tweet a " + result + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
@@ -156,6 +165,9 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * This method handles the explicit Intent to pass the object for selected row to the detail page
+     */
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
 
         @Override
@@ -173,7 +185,9 @@ public class MainActivity extends Activity {
     };
 
 
-
+    /**
+     * This Method handles the auto saving of the current instance to handle device stops/reloads so as not to reload data from web everytime
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -230,6 +244,10 @@ public class MainActivity extends Activity {
             }
 
         }
+
+        /**
+         * Method to parse the data that is passed in
+         */
         public void updateListData(JSONArray readIt) {
             try {
                 MainActivity actOnIt = activityPass.get();
