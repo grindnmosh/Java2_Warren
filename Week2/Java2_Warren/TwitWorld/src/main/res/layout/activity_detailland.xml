@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".DetailActivity"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <view
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            class="com.loopj.android.image.SmartImageView"
+            android:id="@+id/my_image"
+            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/feed"
+            android:layout_alignLeft="@+id/detDate"
+            android:layout_alignStart="@+id/detDate"
+            android:layout_alignRight="@+id/webGD"
+            android:layout_alignEnd="@+id/webGD" />
+
+        <TextView
+            android:layout_width="400dp"
+            android:layout_height="59dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/feed"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/my_image"
+            android:layout_marginLeft="23dp"
+            android:layout_above="@+id/webGD" />
+
+        <TextView
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/detDate"
+            android:layout_marginLeft="21dp"
+            android:layout_alignTop="@+id/twitId"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/twitId"
+            android:layout_above="@+id/usrInfo"
+            android:layout_alignRight="@+id/feed"
+            android:layout_alignEnd="@+id/feed"
+            android:layout_marginBottom="33dp" />
+
+        <TextView
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/retwtCnt"
+            android:layout_above="@+id/rateFeed"
+            android:layout_alignLeft="@+id/detDate"
+            android:layout_alignStart="@+id/detDate" />
+
+        <TextView
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/usrInfo"
+            android:layout_alignTop="@+id/retwtCnt"
+            android:layout_alignRight="@+id/twitId"
+            android:layout_alignEnd="@+id/twitId" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rateFeed"
+            android:layout_marginBottom="18dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/webGD"
+            android:layout_alignStart="@+id/webGD"
+            android:layout_marginLeft="75dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/webButt"
+            android:id="@+id/webGD"
+            android:layout_marginLeft="18dp"
+            android:layout_above="@+id/detDate"
+            android:layout_alignLeft="@+id/detDate"
+            android:layout_alignStart="@+id/detDate"
+            android:layout_marginBottom="28dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fbButt"
+            android:id="@+id/fbGD"
+            android:layout_below="@+id/feed"
+            android:layout_alignLeft="@+id/sub"
+            android:layout_alignStart="@+id/sub"
+            android:layout_marginLeft="45dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/sub"
+            android:layout_marginLeft="27dp"
+            android:layout_alignBottom="@+id/rateFeed"
+            android:layout_toRightOf="@+id/rateFeed" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/txtRatingValue"
+            android:layout_alignBottom="@+id/sub"
+            android:layout_toRightOf="@+id/sub"
+            android:layout_marginLeft="17dp" />
+
+    </RelativeLayout>
+</LinearLayout>
