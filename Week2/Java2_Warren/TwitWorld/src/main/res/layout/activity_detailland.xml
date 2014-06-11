@@ -86,11 +86,11 @@
             android:layout_height="wrap_content"
             android:text="@string/webButt"
             android:id="@+id/webGD"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="61dp"
             android:layout_above="@+id/detDate"
             android:layout_alignLeft="@+id/detDate"
-            android:layout_alignStart="@+id/detDate"
-            android:layout_marginBottom="28dp" />
+            android:layout_alignStart="@+id/detDate" />
 
         <Button
             android:layout_width="wrap_content"
