@@ -67,10 +67,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
         testArray = new ArrayList<String>();
         dateLife = new ArrayList<String>();
         image = new ArrayList<String>();

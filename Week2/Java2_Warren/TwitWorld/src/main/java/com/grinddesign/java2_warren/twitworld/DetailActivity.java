@@ -2,6 +2,7 @@ package com.grinddesign.java2_warren.twitworld;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,38 @@ public class DetailActivity extends Activity {
 
         setContentView(R.layout.activity_detail);
 
+        if (savedInstanceState != null) {
+            String reloadString = savedInstanceState.getString("message");
+
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                setContentView(R.layout.activity_detailland);
+                loadItUp(reloadString);
+            }
+            else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                setContentView(R.layout.activity_detail);
+                loadItUp(reloadString);
+            }
+        }
+        else {
+            Intent intent = getIntent();
+            if (null != intent) {
+                String stringData = intent.getStringExtra("file name");
+
+                Log.i("Passed", stringData);
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+                    setContentView(R.layout.activity_detailland);
+                    loadItUp(stringData);
+                } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    setContentView(R.layout.activity_detail);
+                    loadItUp(stringData);
+                }
+
+            }
+        }
+
+
+
         Button webbie = (Button) findViewById(R.id.webGD);
         Button faceIt = (Button) findViewById(R.id.fbGD);
 
@@ -60,47 +93,59 @@ public class DetailActivity extends Activity {
         addListenerOnRatingBar();
 
 
-        Intent intent = getIntent();
-        if (null != intent) {
-            String stringData= intent.getStringExtra("file name");
-            Log.i("Passed", stringData);
-
-            try {
-                Log.i("WTF1", "enter a try");
-                breakDown = new JSONObject(stringData);
-                Log.i("WTF1", breakDown.toString());
-                String url = breakDown.getJSONObject("user").getString("profile_image_url");
-                String f = breakDown.getString("text");
-                String d = breakDown.getString("created_at");
-                String rt = breakDown.getString("retweet_count");
-                String ti = breakDown.getString("id");
-                String name = breakDown.getJSONObject("user").getString("name");
-                String loc = breakDown.getJSONObject("user").getString("location");
 
 
-                Log.i("WTF1", url);
 
-                SmartImageView myImage = (SmartImageView) findViewById(R.id.my_image);
-                myImage.setImageUrl(url);
-                TextView feeder = (TextView) findViewById(R.id.feed);
-                feeder.setText(f);
-                TextView dately = (TextView) findViewById(R.id.detDate);
-                dately.setText(d);
-                TextView retweet = (TextView) findViewById(R.id.retwtCnt);
-                retweet.setText("Retweeted " + rt + " times");
-                TextView tId = (TextView) findViewById(R.id.twitId);
-                tId.setText("post ID = " + ti);
-                TextView locale = (TextView) findViewById(R.id.usrInfo);
-                locale.setText(name + " is from " + loc);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
 
-            }
 
+
+    }
+
+    public void loadItUp(String string) {
+        try {
+            Log.i("WTF1", "enter a try");
+            breakDown = new JSONObject(string);
+            Log.i("WTF1", breakDown.toString());
+            String url = breakDown.getJSONObject("user").getString("profile_image_url");
+            String f = breakDown.getString("text");
+            String d = breakDown.getString("created_at");
+            String rt = breakDown.getString("retweet_count");
+            String ti = breakDown.getString("id");
+            String name = breakDown.getJSONObject("user").getString("name");
+            String loc = breakDown.getJSONObject("user").getString("location");
+
+
+
+
+            SmartImageView myImage = (SmartImageView) findViewById(R.id.my_image);
+            myImage.setImageUrl(url);
+            TextView feeder = (TextView) findViewById(R.id.feed);
+            feeder.setText(f);
+            TextView dately = (TextView) findViewById(R.id.detDate);
+            dately.setText(d);
+            TextView retweet = (TextView) findViewById(R.id.retwtCnt);
+            retweet.setText("Retweeted " + rt + " times");
+            TextView tId = (TextView) findViewById(R.id.twitId);
+            tId.setText("post ID = " + ti);
+            TextView locale = (TextView) findViewById(R.id.usrInfo);
+            locale.setText(name + " is from " + loc);
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
 
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("message", breakDown.toString());
+    }
+
+
     public void addListenerOnRatingBar() {
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rateFeed);

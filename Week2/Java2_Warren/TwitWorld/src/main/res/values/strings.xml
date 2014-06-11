@@ -9,6 +9,6 @@
     <string name="instructions">Select a post for more detailed info</string>
     <string name="webButt">GD Website</string>
     <string name="fbButt">FB on GD</string>
-
+    <string name="det_name">Twit Details</string>
 
 </resources>

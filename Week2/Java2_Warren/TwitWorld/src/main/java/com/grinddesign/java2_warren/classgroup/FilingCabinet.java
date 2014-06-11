@@ -51,9 +51,6 @@ public class FilingCabinet {
             Log.e("WRITE FILE ERROR", e.toString());
         }
 
-
-
-
         return result;
     }
 
@@ -62,7 +59,7 @@ public class FilingCabinet {
      */
     public String readingIt(Context context, String string) throws InterruptedException {
         Log.i("READER CHECK", "ENTRY");
-        Thread.sleep(5000);
+        Thread.sleep(3500);
 
         String content = null;
 
