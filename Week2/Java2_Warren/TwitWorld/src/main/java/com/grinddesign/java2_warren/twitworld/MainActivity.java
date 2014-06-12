@@ -6,7 +6,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
@@ -17,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 import com.grinddesign.java2_warren.classgroup.TIntServ;
@@ -26,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -116,13 +121,30 @@ public class MainActivity extends Activity {
         }
         //if no saved instance
         else {
-            //test my connection
-            Connection con = new Connection(this);
-            con.connection();
+            //use conection to determine whether to load from file or refresh file
+            ConnectivityManager cm = (ConnectivityManager) thisHere.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                //test my connection
+                Connection con = new Connection(this);
+                con.connection();
 
-            //call method to start my class
-            getData();
+                //call method to start my class
+                getData();
+            }
+            else {
+                //load previously saved data if it exists
+                File file = new File(Environment.getExternalStorageDirectory() + fileName);
+                Message msg = Message.obtain();
+                msg.arg1 = Activity.RESULT_OK;
+                msg.obj = fileName;
+                HandleMe hm = new HandleMe(this);
+                hm.handleMessage(msg);
+                Toast.makeText(thisHere, "loaded file from previously saved file", Toast.LENGTH_SHORT).show();
+
+            }
         }
+
 
 
 
