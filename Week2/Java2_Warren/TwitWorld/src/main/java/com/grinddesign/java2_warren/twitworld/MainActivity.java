@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
@@ -133,14 +132,20 @@ public class MainActivity extends Activity {
                 getData();
             }
             else {
-                //load previously saved data if it exists
-                File file = new File(Environment.getExternalStorageDirectory() + fileName);
-                Message msg = Message.obtain();
-                msg.arg1 = Activity.RESULT_OK;
-                msg.obj = fileName;
-                HandleMe hm = new HandleMe(this);
-                hm.handleMessage(msg);
-                Toast.makeText(thisHere, "loaded file from previously saved file", Toast.LENGTH_SHORT).show();
+                File file = thisHere.getFileStreamPath(fileName);
+                if (file.isFile()) {
+                    //load previously saved data if it exists
+                    //File file = new File(Environment.getExternalStorageDirectory() + fileName);
+                    Message msg = Message.obtain();
+                    msg.arg1 = Activity.RESULT_OK;
+                    msg.obj = fileName;
+                    HandleMe hm = new HandleMe(this);
+                    hm.handleMessage(msg);
+                    Toast.makeText(thisHere, "loaded file from previously saved file", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(thisHere, "No previous file to load. Please connect to a network", Toast.LENGTH_SHORT).show();
+                }
 
             }
         }
