@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TwitWorld</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome">Welcome Follower</string>
+    <string name="bold_name">GrindNMosh\'s Twit World!</string>
+    <string name="instructions">Select a post for more detailed info</string>
+    <string name="webButt">GD Website</string>
+    <string name="fbButt">FB on GD</string>
+    <string name="det_name">Twit Details</string>
+    <string name="submit">Submit</string>
+
+</resources>
