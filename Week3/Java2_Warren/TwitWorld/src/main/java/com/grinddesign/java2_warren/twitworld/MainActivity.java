@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     public static ArrayList<String> image;
     public static ArrayList<String> twitId;
     public static ArrayAdapter<String> mainListAdapter;
-    JSONArray goldenArray = new JSONArray();
+    public static JSONArray goldenArray = new JSONArray();
     Context thisHere = this;
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
@@ -146,10 +146,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
 
     public void startResultActivity(String str) {
+        //Log.i("Click It", str);
         Intent detailPass = new Intent(thisHere, DetailActivity.class);
-           // String goldenObj = goldenArray.getString(position -1);
-            detailPass.putExtra("file name", str);
-
+        Log.i("Cray Cray", str);
+        detailPass.putExtra("file name", str);
+        Log.i("Cray Cray", detailPass.toString());
+        startActivityForResult(detailPass, 0);
     }
 
 

@@ -65,7 +65,7 @@ public class DetailActivity extends Activity {
                 //grab string fom intent
                 String stringData = intent.getStringExtra("file name");
 
-                Log.i("Passed", stringData);
+                //Log.i("Passed", stringData);
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
                     setContentView(R.layout.activity_detailland);

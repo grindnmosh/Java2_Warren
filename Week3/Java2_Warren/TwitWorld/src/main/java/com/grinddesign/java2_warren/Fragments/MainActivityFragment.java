@@ -2,19 +2,17 @@ package com.grinddesign.java2_warren.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.grinddesign.java2_warren.twitworld.DetailActivity;
 import com.grinddesign.java2_warren.twitworld.MainActivity;
 import com.grinddesign.java2_warren.twitworld.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
@@ -31,27 +29,15 @@ import org.json.JSONException;
 
 
 public class MainActivityFragment extends Fragment implements AdapterView.OnItemClickListener {
-    JSONArray goldenArray = new JSONArray();
+    //JSONArray goldenArray = new JSONArray();
     MainActivity thisHere = new MainActivity();
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent detailPass = new Intent(thisHere, DetailActivity.class);
 
-        String goldenObj = null;
-        try {
-            goldenObj = goldenArray.getString(position -1);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        String str = goldenObj;
-        parentActivity.startResultActivity(str);
-    }
 
 
 
     public interface onListClicked {
+
         void startResultActivity(String str);
 
     }
@@ -63,7 +49,12 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         if (activity instanceof onListClicked) {
-            parentActivity = (onListClicked)activity;
+            Log.i("Click It", "attached");
+            parentActivity = (onListClicked) activity;
+            Log.i("Click It", parentActivity.toString());
+        }
+        else {
+            throw new ClassCastException(activity.toString() + "must implement method" );
         }
     }
 
@@ -79,7 +70,22 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
                 false);
         lv.addHeaderView(header, null, false);
 
+        lv.setOnItemClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i("Click It", "Baby");
+        String goldenObj = null;
+        try {
+            goldenObj = MainActivity.goldenArray.getString(position -1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.i("CRAZY", goldenObj);
+        parentActivity.startResultActivity(goldenObj);
+        Log.i("Click It", parentActivity.toString());
     }
 }
