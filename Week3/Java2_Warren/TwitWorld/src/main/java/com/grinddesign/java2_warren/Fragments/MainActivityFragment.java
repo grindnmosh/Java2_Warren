@@ -88,4 +88,6 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         parentActivity.startResultActivity(goldenObj);
         Log.i("Click It", parentActivity.toString());
     }
+
+    
 }

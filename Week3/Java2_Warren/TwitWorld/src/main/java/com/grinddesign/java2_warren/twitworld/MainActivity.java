@@ -151,7 +151,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         Log.i("Cray Cray", str);
         detailPass.putExtra("file name", str);
         Log.i("Cray Cray", detailPass.toString());
-        startActivityForResult(detailPass, 0);
+        startActivityForResult(detailPass, 1);
     }
 
 
@@ -175,7 +175,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             if(resultCode == RESULT_OK){
                 String result = data.getStringExtra("result");
                 String title = "Robert's Tweet Rating by you";
-
+                Log.i("RESULT", result);
                 //create alert to display info passed back in the format of my choosing
                 AlertDialog.Builder displayResult = new AlertDialog.Builder(this);
                 displayResult.setTitle(title).setMessage("You Rated this tweet a " + result + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {

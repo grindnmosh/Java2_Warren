@@ -30,12 +30,14 @@ import org.json.JSONObject;
 public class DetailActivity extends Activity {
     private TextView txtRatingValue;
     JSONObject breakDown = null;
+    String result = null;
+    Button sub;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.detail_frag);
 
         //check to see if there is a saved instance
         //if there is a saved instance
@@ -189,8 +191,8 @@ public class DetailActivity extends Activity {
                 txtRatingValue.setText(String.valueOf(rating));
 
                 //declare rating into a string
-                final String result = String.valueOf(rating);
-                Button sub = (Button) findViewById(R.id.sub);
+                result = String.valueOf(rating);
+                sub = (Button) findViewById(R.id.sub);
                 sub.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
