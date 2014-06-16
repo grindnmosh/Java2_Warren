@@ -13,14 +13,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.grinddesign.java2_warren.Fragments.MainActivityFragment;
 import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 import com.grinddesign.java2_warren.classgroup.TIntServ;
 import com.grinddesign.test.Connection;
@@ -45,7 +44,7 @@ import java.util.ArrayList;
  * Purpose: This is where all the action happens to actually present the application on the device screen and to direct the traffic of what needs to run and when.
  */
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements AdapterView.OnItemClickListener, MainActivityFragment.onListClicked {
 
 
     public static ArrayList<String> testArray;
@@ -70,7 +69,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_frag);
 
         testArray = new ArrayList<String>();
         dateLife = new ArrayList<String>();
@@ -78,18 +77,6 @@ public class MainActivity extends Activity {
         twitId = new ArrayList<String>();
 
         final ListView lv = (ListView) findViewById(R.id.tList);
-
-
-
-
-        //create my header
-        LayoutInflater inflater = getLayoutInflater();
-        ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header_cell, lv,
-                false);
-        lv.addHeaderView(header, null, false);
-
-
-
 
         //create adapter calling on the dynamic array from FeedMe Class // this will be dynamic data in week 3 from the API
         mainListAdapter = new custAdapter(thisHere, R.layout.item_cell, testArray);
@@ -101,7 +88,7 @@ public class MainActivity extends Activity {
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 
-        lv.setOnItemClickListener(onListClick);
+
 
         //check for saved instance
         //if there is a saved instance
@@ -158,6 +145,13 @@ public class MainActivity extends Activity {
     }
 
 
+    public void startResultActivity(String str) {
+        Intent detailPass = new Intent(thisHere, DetailActivity.class);
+           // String goldenObj = goldenArray.getString(position -1);
+            detailPass.putExtra("file name", str);
+
+    }
+
 
     /**
      * This method creates my intent and starts my service.
@@ -194,24 +188,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    /**
-     * This method handles the explicit Intent to pass the object for selected row to the detail page
-     */
-    private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent detailPass = new Intent(thisHere, DetailActivity.class);
-            try {
-                String goldenObj = goldenArray.getString(position -1);
-                detailPass.putExtra("file name", goldenObj);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            startActivityForResult(detailPass, 1);
-        }
-    };
 
 
     /**
@@ -221,6 +198,11 @@ public class MainActivity extends Activity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("message", goldenArray.toString());
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 
 
@@ -248,7 +230,7 @@ public class MainActivity extends Activity {
                     x_File = FilingCabinet.getInstance();
                     Log.i("MAIN FILE NAME", msg.obj.toString());
                     Log.i("ENTER UPDATE", fileName);
-                    Log.i("READ CONTEXT", actOnIt.toString());
+                    //Log.i("READ CONTEXT", actOnIt.toString());
 
                     try {
                         JSONArray readThatSucker = null;
