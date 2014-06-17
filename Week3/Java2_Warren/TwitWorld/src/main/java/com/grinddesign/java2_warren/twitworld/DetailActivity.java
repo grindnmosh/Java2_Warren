@@ -11,10 +11,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.loopj.android.image.SmartImageView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
 
 /**
  * Author:  Robert Warren
@@ -27,9 +24,9 @@ import org.json.JSONObject;
  * <p/>
  * Purpose: This will be where I create the code for the passed in details from my MainActivity.java and present the details and a rating chart that returns data back to the main activity for each post.
  */
-public class DetailActivity extends Activity {
+public class DetailActivity extends Activity implements DetailActivityFragment.grind, DetailActivityFragment.face {
     private TextView txtRatingValue;
-    JSONObject breakDown = null;
+
     String result = null;
     Button sub;
 
@@ -38,6 +35,8 @@ public class DetailActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.detail_frag);
+        DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
+
 
         //check to see if there is a saved instance
         //if there is a saved instance
@@ -45,17 +44,16 @@ public class DetailActivity extends Activity {
             //grab saved instance data
             String reloadString = savedInstanceState.getString("message");
 
+
             //check orientation 1 = Portrait 2 = Landscape
             Log.i("ORIENTATION IS", String.valueOf(getResources().getConfiguration().orientation));
             //if landscape load this
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                setContentView(R.layout.activity_detailland);
-                loadItUp(reloadString);
+                fragment.loadItUp(reloadString);
             }
             //if portrait load this
             else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                setContentView(R.layout.activity_detail);
-                loadItUp(reloadString);
+                fragment.loadItUp(reloadString);
             }
         }
         //if no saved instance
@@ -70,108 +68,26 @@ public class DetailActivity extends Activity {
                 //Log.i("Passed", stringData);
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
-                    setContentView(R.layout.activity_detailland);
-                    loadItUp(stringData);
+                    fragment.loadItUp(stringData);
                 } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    setContentView(R.layout.activity_detail);
-                    loadItUp(stringData);
+                    fragment.loadItUp(stringData);
                 }
 
             }
         }
 
 
-        /**
-         * These are the onclick methods used to call each of the 2 implicit intents.
-         */
-        Button webbie = (Button) findViewById(R.id.webGD);
-        Button faceIt = (Button) findViewById(R.id.fbGD);
 
-        //implicit intent #1
-        webbie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri webpage = Uri.parse("http://www.grind-design.com");
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-                startActivity(webIntent);
-            }
-        });
 
-        //implicit intent #2
-        faceIt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri webpage = Uri.parse("https://www.facebook.com/GrindDesign");
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-                startActivity(webIntent);
-            }
-        });
 
         addListenerOnRatingBar();
 
-
-
-
-
-
-
-
-
     }
 
-    /**
-     * Method to parse passed in data when called on
-     */
-    public void loadItUp(String string) {
-        try {
-            Log.i("WTF1", "enter a try");
-            breakDown = new JSONObject(string);
-            Log.i("BREAKDOWN", breakDown.toString());
-            String url = breakDown.getJSONObject("user").getString("profile_image_url");
-            String f = breakDown.getString("text");
-            String d = breakDown.getString("created_at");
-            String rt = breakDown.getString("retweet_count");
-            String ti = breakDown.getString("id");
-            String name = breakDown.getJSONObject("user").getString("name");
-            String loc = breakDown.getJSONObject("user").getString("location");
-            Log.i("did it get here", loc);
-            String exUrl = breakDown.getJSONObject("entities").getJSONArray("urls").getJSONObject(0).getString("expanded_url");
-            Log.i("EXPANDED URL", exUrl);
 
 
 
 
-            SmartImageView myImage = (SmartImageView) findViewById(R.id.my_image);
-            myImage.setImageUrl(url);
-            TextView feeder = (TextView) findViewById(R.id.feed);
-            feeder.setText(f);
-            TextView expandedUrl = (TextView) findViewById(R.id.url);
-            expandedUrl.setText(exUrl);
-            TextView dately = (TextView) findViewById(R.id.detDate);
-            dately.setText(d);
-            TextView retweet = (TextView) findViewById(R.id.retwtCnt);
-            retweet.setText("Retweeted " + rt + " times");
-            TextView tId = (TextView) findViewById(R.id.twitId);
-            tId.setText("post ID = " + ti);
-            TextView locale = (TextView) findViewById(R.id.usrInfo);
-            locale.setText(name + " is from " + loc);
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-
-        }
-    }
-
-    /**
-     * This Method handles the auto saving of the current instance to handle device stops/reloads so as not to reload data from web everytime
-     */
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("message", breakDown.toString());
-    }
 
 
     /**
@@ -209,4 +125,18 @@ public class DetailActivity extends Activity {
         });
     }
 
+    @Override
+    public void faceClicked() {
+        Log.i("FACEOFF", "FACEOFF");
+        Uri webpage = Uri.parse("https://www.facebook.com/GrindDesign");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
+    }
+
+    @Override
+    public void grindClicked() {
+        Uri webpage = Uri.parse("http://www.grind-design.com");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
+    }
 }

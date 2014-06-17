@@ -29,12 +29,6 @@ import org.json.JSONException;
 
 
 public class MainActivityFragment extends Fragment implements AdapterView.OnItemClickListener {
-    //JSONArray goldenArray = new JSONArray();
-    MainActivity thisHere = new MainActivity();
-
-
-
-
 
     public interface onListClicked {
 
@@ -89,5 +83,5 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         Log.i("Click It", parentActivity.toString());
     }
 
-    
+
 }
