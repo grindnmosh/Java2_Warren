@@ -156,9 +156,6 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-
-        Log.i("RATING", String.valueOf(rating));
-
         parentActivity3.starryEyes(rating);
     }
 

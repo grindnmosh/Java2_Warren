@@ -13,8 +13,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -44,7 +42,7 @@ import java.util.ArrayList;
  * Purpose: This is where all the action happens to actually present the application on the device screen and to direct the traffic of what needs to run and when.
  */
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener, MainActivityFragment.onListClicked {
+public class MainActivity extends Activity implements MainActivityFragment.onListClicked {
 
 
     public static ArrayList<String> testArray;
@@ -202,10 +200,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         outState.putString("message", goldenArray.toString());
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-    }
 
 
     /**
