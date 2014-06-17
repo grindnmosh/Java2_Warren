@@ -24,9 +24,8 @@ import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
  * <p/>
  * Purpose: This will be where I create the code for the passed in details from my MainActivity.java and present the details and a rating chart that returns data back to the main activity for each post.
  */
-public class DetailActivity extends Activity implements DetailActivityFragment.grind, DetailActivityFragment.face {
-    private TextView txtRatingValue;
-
+public class DetailActivity extends Activity implements DetailActivityFragment.grind, DetailActivityFragment.face, DetailActivityFragment.beRated {
+    TextView txtRatingValue;
     String result = null;
     Button sub;
 
@@ -80,7 +79,7 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
 
 
 
-        addListenerOnRatingBar();
+
 
     }
 
@@ -93,8 +92,25 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
     /**
      * Method to listen rating bar and return rating when submitted back to the main application view
      */
-    public void addListenerOnRatingBar() {
 
+
+    @Override
+    public void faceClicked() {
+        Log.i("FACEOFF", "FACEOFF");
+        Uri webpage = Uri.parse("https://www.facebook.com/GrindDesign");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
+    }
+
+    @Override
+    public void grindClicked() {
+        Uri webpage = Uri.parse("http://www.grind-design.com");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
+    }
+
+    @Override
+    public void starryEyes(float rating) {
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rateFeed);
         txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
 
@@ -123,20 +139,5 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
 
             }
         });
-    }
-
-    @Override
-    public void faceClicked() {
-        Log.i("FACEOFF", "FACEOFF");
-        Uri webpage = Uri.parse("https://www.facebook.com/GrindDesign");
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-        startActivity(webIntent);
-    }
-
-    @Override
-    public void grindClicked() {
-        Uri webpage = Uri.parse("http://www.grind-design.com");
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-        startActivity(webIntent);
     }
 }

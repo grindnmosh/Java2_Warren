@@ -71,16 +71,16 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.i("Click It", "Baby");
+        //Log.i("Click It", "Baby");
         String goldenObj = null;
         try {
             goldenObj = MainActivity.goldenArray.getString(position -1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i("CRAZY", goldenObj);
+        //Log.i("CRAZY", goldenObj);
         parentActivity.startResultActivity(goldenObj);
-        Log.i("Click It", parentActivity.toString());
+        //Log.i("Click It", parentActivity.toString());
     }
 
 

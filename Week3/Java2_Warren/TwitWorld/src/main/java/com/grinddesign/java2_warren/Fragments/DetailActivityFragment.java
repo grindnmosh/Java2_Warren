@@ -40,8 +40,9 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     TextView locale;
     Button grind;
     Button face;
-    DetailActivityFragment this1 = this;
-    DetailActivityFragment this2 = this;
+    TextView txtRatingValue;
+    RatingBar rb;
+
 
 
 
@@ -53,14 +54,19 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
         void faceClicked();
     }
 
+    public interface beRated {
+        void starryEyes(float rating);
+    }
+
     private grind parentActivity1;
     private face parentActivity2;
+    private  beRated parentActivity3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_detail, container, false);
 
-        final RatingBar rb = (RatingBar) view.findViewById(R.id.rateFeed);
+        rb = (RatingBar) view.findViewById(R.id.rateFeed);
         myImage = (SmartImageView) view.findViewById(R.id.my_image);
         feeder = (TextView) view.findViewById(R.id.feed);
         expandedUrl = (TextView) view.findViewById(R.id.url);
@@ -68,6 +74,7 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
         retweet = (TextView) view.findViewById(R.id.retwtCnt);
         tId = (TextView) view.findViewById(R.id.twitId);
         locale = (TextView) view.findViewById(R.id.usrInfo);
+        txtRatingValue = (TextView) view.findViewById(R.id.txtRatingValue);
         grind = (Button) view.findViewById(R.id.webGD);
         grind.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,10 +86,12 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
         face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("WTFClick", "123");
                 parentActivity2.faceClicked();
             }
         });
 
+        rb.setOnRatingBarChangeListener(this);
 
         return view;
 
@@ -119,6 +128,7 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
 
 
+
         } catch (JSONException e) {
             e.printStackTrace();
 
@@ -134,20 +144,10 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof grind) {
-            Log.i("Click It", "attached");
-            parentActivity1 = (grind) activity;
-            Log.i("Click It", parentActivity1.toString());
-        }
-        else if (activity instanceof face) {
-            Log.i("Click It", "attached");
-            parentActivity2 = (face) activity;
-            Log.i("Click It", parentActivity2.toString());
-        }
-        else {
-            throw new ClassCastException(activity.toString() + "must implement method" );
-        }
 
+        parentActivity1 = (grind) activity;
+        parentActivity2 = (face) activity;
+        parentActivity3 = (beRated) activity;
     }
 
 
@@ -157,6 +157,9 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
+        Log.i("RATING", String.valueOf(rating));
+
+        parentActivity3.starryEyes(rating);
     }
 
 
