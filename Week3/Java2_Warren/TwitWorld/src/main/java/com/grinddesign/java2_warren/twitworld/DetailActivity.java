@@ -35,19 +35,18 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
         //if there is a saved instance
         if (savedInstanceState != null) {
             //grab saved instance data
-            String reloadString = savedInstanceState.getString("detail_message");
+
 
 
             //check orientation 1 = Portrait 2 = Landscape
             Log.i("ORIENTATION IS", String.valueOf(getResources().getConfiguration().orientation));
             //if landscape load this
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
                 finish();
             }
             //if portrait load this
-            else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                fragment.loadItUp(reloadString);
-            }
+
         }
         //if no saved instance
         else {
@@ -77,9 +76,12 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
 
 
 
+
     /**
      * Method to listen rating bar and return rating when submitted back to the main application view
      */
+
+
 
 
     @Override

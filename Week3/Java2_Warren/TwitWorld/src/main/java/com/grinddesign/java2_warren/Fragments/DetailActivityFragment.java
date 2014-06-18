@@ -45,6 +45,7 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
 
 
+
     public interface grind {
         void grindClicked();
     }
@@ -65,9 +66,18 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     private  beRated parentActivity3;
     //private rater parentActivity4;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_detail, container, false);
+
+
 
         rb = (RatingBar) view.findViewById(R.id.rateFeed);
         feeder = (TextView) view.findViewById(R.id.feed);
@@ -94,6 +104,13 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
         });
 
         rb.setOnRatingBarChangeListener(this);
+
+
+        if ((savedInstanceState != null) && (savedInstanceState.getSerializable("starttime") != null)) {
+            String reloadString = (String) savedInstanceState.getSerializable("starttime");
+
+            Log.i("RELOAD", reloadString);
+        }
 
 
 
@@ -135,9 +152,14 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+
         outState.putString("detail_message", breakDown.toString());
+
+
+
     }
+
+
 
     @Override
     public void onAttach(Activity activity) {

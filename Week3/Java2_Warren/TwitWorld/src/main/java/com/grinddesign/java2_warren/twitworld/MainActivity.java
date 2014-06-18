@@ -53,11 +53,12 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     public static ArrayList<String> twitId;
     public static ArrayAdapter<String> mainListAdapter;
     public static JSONArray goldenArray = new JSONArray();
+
     Context thisHere = this;
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
     final HandleMe tHand = new HandleMe(this);
-    String result = null;
+
 
 
     /**
@@ -72,6 +73,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_frag);
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
+
 
         testArray = new ArrayList<String>();
         dateLife = new ArrayList<String>();
@@ -95,9 +97,13 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         //check for saved instance
         //if there is a saved instance
         if( savedInstanceState != null ) {
+
+
+
             //data from saved instance
+            //String reloadString = savedInstanceState.getString("detail_message");
+
             String passerBy = savedInstanceState.getString("message");
-            String reloadString = savedInstanceState.getString("detail_message");
             try {
                 JSONArray readThatSucker = new JSONArray(passerBy);
                 Log.i("readItAgain", readThatSucker.toString());
@@ -105,7 +111,6 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
         //if no saved instance
         else {
@@ -118,7 +123,6 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                 con.connection();
 
                 //call method to start my class
-                MainActivityFragment fraggleRock = (MainActivityFragment) getFragmentManager().findFragmentById(R.id.fragment);
                 getData();
             }
             else {
@@ -147,11 +151,15 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
     }
 
+
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("message", goldenArray.toString());
     }
+
+
 
 
 
@@ -164,10 +172,12 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
             if (fragment != null && fragment.isInLayout()) {
 
                 fragment.loadItUp(str);
+                Log.i("WILDMAN", str);
             }
             else {
 
                 startResultActivity(str);
+                Log.i("WILDMAN", str);
             }
 
 
