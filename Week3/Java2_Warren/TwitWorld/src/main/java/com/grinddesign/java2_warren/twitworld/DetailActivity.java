@@ -6,10 +6,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
 
@@ -25,9 +21,6 @@ import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
  * Purpose: This will be where I create the code for the passed in details from my MainActivity.java and present the details and a rating chart that returns data back to the main activity for each post.
  */
 public class DetailActivity extends Activity implements DetailActivityFragment.grind, DetailActivityFragment.face, DetailActivityFragment.beRated {
-    TextView txtRatingValue;
-    String result = null;
-    Button sub;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,18 +30,19 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
 
 
+
         //check to see if there is a saved instance
         //if there is a saved instance
         if (savedInstanceState != null) {
             //grab saved instance data
-            String reloadString = savedInstanceState.getString("message");
+            String reloadString = savedInstanceState.getString("detail_message");
 
 
             //check orientation 1 = Portrait 2 = Landscape
             Log.i("ORIENTATION IS", String.valueOf(getResources().getConfiguration().orientation));
             //if landscape load this
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                fragment.loadItUp(reloadString);
+                finish();
             }
             //if portrait load this
             else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -66,8 +60,7 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
 
                 //Log.i("Passed", stringData);
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
-                    fragment.loadItUp(stringData);
+                    finish();
                 } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     fragment.loadItUp(stringData);
                 }
@@ -75,13 +68,8 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
             }
         }
 
-
-
-
-
-
-
     }
+
 
 
 
@@ -110,34 +98,10 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
     }
 
     @Override
-    public void starryEyes(float rating) {
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.rateFeed);
-        txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
-
-        //listens to rating change
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            public void onRatingChanged(RatingBar ratingBar, float rating,
-                                        boolean fromUser) {
-
-                //displays rating in text to right of the button
-                txtRatingValue.setText(String.valueOf(rating));
-
-                //declare rating into a string
-                result = String.valueOf(rating);
-                sub = (Button) findViewById(R.id.sub);
-                sub.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //pass data back
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtra("result",result);
-                        setResult(RESULT_OK,returnIntent);
-                        finish();
-
-                    }
-                });
-
-            }
-        });
+    public void starryEyes(String result) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",result);
+        setResult(RESULT_OK,returnIntent);
+        finish();
     }
 }

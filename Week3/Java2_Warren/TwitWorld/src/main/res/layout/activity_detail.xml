@@ -12,73 +12,53 @@
         android:layout_height="fill_parent">
 
         <TextView
-            android:layout_width="240dp"
-            android:layout_height="120dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/feed"
-            android:layout_marginTop="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/my_image" />
+            android:layout_alignLeft="@+id/webGD"
+            android:layout_alignRight="@+id/fbGD"
+            android:layout_alignEnd="@+id/fbGD" />
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/detDate"
-            android:layout_marginBottom="26dp"
-            android:layout_above="@+id/retwtCnt"
-            android:layout_centerHorizontal="true" />
+            android:layout_below="@+id/url"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/retwtCnt"
-            android:layout_above="@+id/twitId"
-            android:layout_alignLeft="@+id/detDate"
             android:layout_alignStart="@+id/detDate"
-            android:layout_marginBottom="26dp" />
+            android:layout_below="@+id/detDate"
+            android:layout_alignParentLeft="true" />
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/twitId"
-            android:layout_above="@+id/usrInfo"
-            android:layout_alignLeft="@+id/retwtCnt"
             android:layout_alignStart="@+id/retwtCnt"
-            android:layout_marginBottom="26dp" />
-
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/usrInfo"
-            android:layout_marginBottom="22dp"
-            android:layout_above="@+id/rateFeed"
-            android:layout_alignLeft="@+id/twitId"
-            android:layout_alignStart="@+id/twitId" />
+            android:layout_below="@+id/retwtCnt"
+            android:layout_alignParentLeft="true" />
 
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rateFeed"
             android:numStars="5"
-            android:stepSize="0.2"
+            android:stepSize="0.5"
             android:rating="0.0"
             android:focusableInTouchMode="false"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/twitId"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <view
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            class="com.loopj.android.image.SmartImageView"
-            android:id="@+id/my_image"
-            android:layout_alignTop="@+id/feed"
-            android:layout_alignLeft="@+id/webGD"
-            android:layout_alignStart="@+id/webGD" />
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/sub" />
 
         <Button
             android:layout_width="wrap_content"
@@ -87,7 +67,8 @@
             android:id="@+id/webGD"
             android:layout_below="@+id/feed"
             android:layout_alignLeft="@+id/detDate"
-            android:layout_alignStart="@+id/detDate"/>
+            android:layout_alignStart="@+id/detDate"
+            android:layout_alignBottom="@+id/fbGD" />
 
         <Button
             android:layout_width="wrap_content"
@@ -114,7 +95,7 @@
             android:layout_height="wrap_content"
             android:text="@string/submit"
             android:id="@+id/sub"
-            android:layout_alignTop="@+id/rateFeed"
+            android:layout_below="@+id/twitId"
             android:layout_toRightOf="@+id/rateFeed" />
 
         <TextView
@@ -127,5 +108,6 @@
             android:layout_alignStart="@+id/webGD"
             android:layout_alignRight="@+id/txtRatingValue"
             android:layout_alignEnd="@+id/txtRatingValue" />
+
     </RelativeLayout>
 </LinearLayout>

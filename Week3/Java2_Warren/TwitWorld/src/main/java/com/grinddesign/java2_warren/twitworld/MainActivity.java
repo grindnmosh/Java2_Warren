@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
 import com.grinddesign.java2_warren.Fragments.MainActivityFragment;
 import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 import com.grinddesign.java2_warren.classgroup.TIntServ;
@@ -42,7 +44,7 @@ import java.util.ArrayList;
  * Purpose: This is where all the action happens to actually present the application on the device screen and to direct the traffic of what needs to run and when.
  */
 
-public class MainActivity extends Activity implements MainActivityFragment.onListClicked {
+public class MainActivity extends Activity implements MainActivityFragment.onListClicked, DetailActivityFragment.grind, DetailActivityFragment.face, DetailActivityFragment.beRated  {
 
 
     public static ArrayList<String> testArray;
@@ -55,6 +57,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
     final HandleMe tHand = new HandleMe(this);
+    String result = null;
 
 
     /**
@@ -68,6 +71,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_frag);
+        DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
 
         testArray = new ArrayList<String>();
         dateLife = new ArrayList<String>();
@@ -93,7 +97,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         if( savedInstanceState != null ) {
             //data from saved instance
             String passerBy = savedInstanceState.getString("message");
-            Log.i("SAVED INSTANCE", passerBy);
+            String reloadString = savedInstanceState.getString("detail_message");
             try {
                 JSONArray readThatSucker = new JSONArray(passerBy);
                 Log.i("readItAgain", readThatSucker.toString());
@@ -101,7 +105,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            //Toast.makeText(this, passerBy, Toast.LENGTH_LONG).show();
+
         }
         //if no saved instance
         else {
@@ -114,6 +118,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                 con.connection();
 
                 //call method to start my class
+                MainActivityFragment fraggleRock = (MainActivityFragment) getFragmentManager().findFragmentById(R.id.fragment);
                 getData();
             }
             else {
@@ -138,6 +143,32 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
 
 
+
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("message", goldenArray.toString());
+    }
+
+
+
+    @Override
+    public void listItemSelected(String str) {
+
+        DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
+
+
+            if (fragment != null && fragment.isInLayout()) {
+
+                fragment.loadItUp(str);
+            }
+            else {
+
+                startResultActivity(str);
+            }
 
 
     }
@@ -184,6 +215,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                 });
                 displayResult.create();
                 displayResult.show();
+
             }
         }
     }
@@ -191,16 +223,63 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
 
 
+
     /**
      * This Method handles the auto saving of the current instance to handle device stops/reloads so as not to reload data from web everytime
      */
+
+
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("message", goldenArray.toString());
+    public void faceClicked() {
+        Log.i("FACEOFF", "FACEOFF");
+        Uri webpage = Uri.parse("https://www.facebook.com/GrindDesign");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
+    }
+
+    @Override
+    public void grindClicked() {
+        Uri webpage = Uri.parse("http://www.grind-design.com");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
     }
 
 
+
+    @Override
+    public void starryEyes(String str) {
+
+        String title = "Robert's Tweet Rating by you";
+        AlertDialog.Builder displayResult = new AlertDialog.Builder(this);
+        displayResult.setTitle(title).setMessage("You Rated this tweet a " + str + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        displayResult.create();
+        displayResult.show();
+        //grabby(RESULT_OK, returnIntent);
+    }
+
+    protected void grabby(int resultCode, Intent data) {
+
+            if (resultCode == RESULT_OK) {
+                String result = data.getStringExtra("result");
+                String title = "Robert's Tweet Rating by you";
+                AlertDialog.Builder displayResult = new AlertDialog.Builder(this);
+                displayResult.setTitle(title).setMessage("You Rated this tweet a " + result + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                displayResult.create();
+                displayResult.show();
+            }
+
+
+    }
 
 
     /**

@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.grinddesign.java2_warren.twitworld.MainActivity;
 import com.grinddesign.java2_warren.twitworld.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
@@ -30,9 +31,11 @@ import org.json.JSONException;
 
 public class MainActivityFragment extends Fragment implements AdapterView.OnItemClickListener {
 
+    JSONArray goldenArray = new JSONArray();
+
     public interface onListClicked {
 
-        void startResultActivity(String str);
+        void listItemSelected(String str);
 
     }
 
@@ -66,8 +69,11 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
 
         lv.setOnItemClickListener(this);
 
+
         return view;
     }
+
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -79,7 +85,7 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
             e.printStackTrace();
         }
         //Log.i("CRAZY", goldenObj);
-        parentActivity.startResultActivity(goldenObj);
+        parentActivity.listItemSelected(goldenObj);
         //Log.i("Click It", parentActivity.toString());
     }
 
