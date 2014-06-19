@@ -24,9 +24,9 @@ import org.json.JSONObject;
  * <p/>
  * Package: com.grinddesign.java2_warren.Fragments
  * <p/>
- * File:    ${File_Name}
+ * File:    DetailActivityFragment.java
  * <p/>
- * Purpose: ${Comments_Here}
+ * Purpose: This is my detail fragment that handles all my UI loading and behaviors
  */
 public class DetailActivityFragment extends Fragment implements RatingBar.OnRatingBarChangeListener {
 
@@ -43,10 +43,9 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     String result = null;
     Button sub;
 
-
-
-
-
+    /**
+     * These are the interfaces for the detail fragment
+     */
     public interface grind {
         void grindClicked();
     }
@@ -59,23 +58,16 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
         void starryEyes(String str);
     }
 
-
-
-
+    /**
+     * These are the private declarations for the interfaces
+     */
     private grind parentActivity1;
     private face parentActivity2;
     private  beRated parentActivity3;
-    //private rater parentActivity4;
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
-        super.onCreate(savedInstanceState);
-        fragment.getRetainInstance();
-        Log.i("RETAIN", String.valueOf(fragment.getRetainInstance()));
-    }
-
+    /**
+     * This is where we load the main activity UI in the fragment.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_detail, container, false);
@@ -122,6 +114,9 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
     }
 
+    /**
+     * this is the method that loads the data into the various fields
+     */
     public void loadItUp(String string) {
         try {
             Log.i("WTF1", "enter a try");
@@ -139,8 +134,8 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
 
             feeder.setText(f);
-            expandedUrl.setText(exUrl);
-            dately.setText(d);
+            expandedUrl.setText("URL: " + exUrl);
+            dately.setText("Date: " + d);
             retweet.setText("Retweeted " + rt + " times");
             tId.setText("post ID = " + ti);
 
@@ -153,6 +148,9 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
         }
     }
 
+    /**
+     * This Method handles the auto saving of the current instance to handle device stops/reloads so as not to reload data from web everytime
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
@@ -164,11 +162,9 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
     }
 
-
-
-
-
-
+    /**
+     * the on Attach handeles making the methods accessible in any activity using the fragment
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -179,11 +175,9 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
         //parentActivity4 = (rater) activity;
     }
 
-
-
-
-
-
+    /**
+     * This method handles the star ratings from the detail fragment
+     */
     @Override
     public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
         //displays rating in text to right of the button

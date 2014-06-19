@@ -153,7 +153,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     }
 
 
-
+    /**
+     * This Method handles the auto saving of the current instance to handle device stops/reloads so as not to reload data from web everytime
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -161,8 +163,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     }
 
 
-
-
+    /**
+     * This Method handles loading of data based on item selected from the listview
+     */
 
     @Override
     public void listItemSelected(String str) {
@@ -184,7 +187,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
     }
 
-
+    /**
+     * This method handles the passing and loading of the detail view in Portrait
+     */
     public void startResultActivity(String str) {
         //Log.i("Click It", str);
         Intent detailPass = new Intent(thisHere, DetailActivity.class);
@@ -232,14 +237,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     }
 
 
-
-
-
     /**
-     * This Method handles the auto saving of the current instance to handle device stops/reloads so as not to reload data from web everytime
+     * This method handles the Facebook implicit intent from the detail fragment
      */
-
-
     @Override
     public void faceClicked() {
         Log.i("FACEOFF", "FACEOFF");
@@ -248,6 +248,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         startActivity(webIntent);
     }
 
+    /**
+     * This method handles the grinddesign.com implicit intent from the detail fragment
+     */
     @Override
     public void grindClicked() {
         Uri webpage = Uri.parse("http://www.grind-design.com");
@@ -256,7 +259,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     }
 
 
-
+    /**
+     * This method handles the star ratings from the detail fragment
+     */
     @Override
     public void starryEyes(String str) {
 
@@ -273,24 +278,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         //grabby(RESULT_OK, returnIntent);
     }
 
-    protected void grabby(int resultCode, Intent data) {
 
-            if (resultCode == RESULT_OK) {
-                String result = data.getStringExtra("result");
-                String title = "Robert's Tweet Rating by you";
-                AlertDialog.Builder displayResult = new AlertDialog.Builder(this);
-                displayResult.setTitle(title).setMessage("You Rated this tweet a " + result + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                displayResult.create();
-                displayResult.show();
-            }
-
-
-    }
 
 
     /**

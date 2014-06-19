@@ -22,25 +22,32 @@ import org.json.JSONException;
  * <p/>
  * Package: com.grinddesign.java2_warren.Fragments
  * <p/>
- * File:    ${File_Name}
+ * File:    MainActivityFragment.java
  * <p/>
- * Purpose: ${Comments_Here}
+ * Purpose: This is my detail fragment that handles all my UI loading and behaviors
  */
 
 
 public class MainActivityFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    //JSONArray goldenArray = new JSONArray();
-
+    /**
+     * This is the the interface for the main fragment
+     */
     public interface onListClicked {
 
         void listItemSelected(String str);
 
     }
 
+    /**
+     * this is the private declaration for the main fragment
+     */
     private onListClicked parentActivity;
 
 
+    /**
+     * the on Attach handeles making the methods accessible in any activity using the fragment
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -54,6 +61,9 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         }
     }
 
+    /**
+     * This is where we load the main activity UI in the fragment.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
@@ -73,7 +83,9 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
     }
 
 
-
+    /**
+     * This method handle the immediate reaction when a list item is clicked.
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //Log.i("Click It", "Baby");

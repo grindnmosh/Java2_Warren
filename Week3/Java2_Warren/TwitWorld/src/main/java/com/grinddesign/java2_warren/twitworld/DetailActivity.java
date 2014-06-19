@@ -71,20 +71,9 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
     }
 
 
-
-
-
-
-
-
-
     /**
-     * Method to listen rating bar and return rating when submitted back to the main application view
+     * This method handles the Facebook implicit intent from the detail fragment
      */
-
-
-
-
     @Override
     public void faceClicked() {
         Log.i("FACEOFF", "FACEOFF");
@@ -93,6 +82,9 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
         startActivity(webIntent);
     }
 
+    /**
+     * This method handles the grinddesign.com implicit intent from the detail fragment
+     */
     @Override
     public void grindClicked() {
         Uri webpage = Uri.parse("http://www.grind-design.com");
@@ -100,6 +92,9 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
         startActivity(webIntent);
     }
 
+    /**
+     * Method to listen rating bar and return rating when submitted back to the main application view
+     */
     @Override
     public void starryEyes(String result) {
         Intent returnIntent = new Intent();
