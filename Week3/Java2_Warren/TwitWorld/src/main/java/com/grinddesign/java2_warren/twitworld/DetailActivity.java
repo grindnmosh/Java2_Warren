@@ -45,6 +45,7 @@ public class DetailActivity extends Activity implements DetailActivityFragment.g
 
                 finish();
             }
+
             //if portrait load this
 
         }

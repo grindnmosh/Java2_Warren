@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     public static ArrayList<String> twitId;
     public static ArrayAdapter<String> mainListAdapter;
     public static JSONArray goldenArray = new JSONArray();
-
+    public static Bundle broken;
     Context thisHere = this;
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
@@ -73,7 +73,6 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_frag);
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
-
 
         testArray = new ArrayList<String>();
         dateLife = new ArrayList<String>();
@@ -99,6 +98,8 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         if( savedInstanceState != null ) {
 
 
+            String reloadString = broken.getString("detail_message");
+            fragment.loadItUp(reloadString);
 
             //data from saved instance
             //String reloadString = savedInstanceState.getString("detail_message");

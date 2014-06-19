@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.grinddesign.java2_warren.twitworld.MainActivity;
 import com.grinddesign.java2_warren.twitworld.R;
 
 import org.json.JSONException;
@@ -69,8 +70,10 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        fragment.getRetainInstance();
+        Log.i("RETAIN", String.valueOf(fragment.getRetainInstance()));
     }
 
     @Override
@@ -152,12 +155,17 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
+        DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
         outState.putString("detail_message", breakDown.toString());
-
-
+        Log.i("RETAIN", outState.toString());
+        MainActivity.broken = outState;
+        Log.i("RETAINER", String.valueOf(MainActivity.broken));
+        fragment.setRetainInstance(true);
 
     }
+
+
+
 
 
 
@@ -170,6 +178,8 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
         parentActivity3 = (beRated) activity;
         //parentActivity4 = (rater) activity;
     }
+
+
 
 
 
