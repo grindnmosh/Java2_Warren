@@ -136,20 +136,22 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
-            Log.i("BITEONE", "TEST");
-            String result = data.getStringExtra("result");
-            String title = "Robert's Tweet Rating by you";
-            Log.i("RESULT", result);
-            //create alert to display info passed back in the format of my choosing
-            AlertDialog.Builder displayResult = new AlertDialog.Builder(thisHere);
-            displayResult.setTitle(title).setMessage("You Rated this tweet a " + result + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            displayResult.create();
-            displayResult.show();
+            if (resultCode == RESULT_OK) {
+                Log.i("BITEONE", "TEST");
+                String result = data.getStringExtra("result");
+                String title = "Robert's Tweet Rating by you";
+                Log.i("RESULT", result);
+                //create alert to display info passed back in the format of my choosing
+                AlertDialog.Builder displayResult = new AlertDialog.Builder(thisHere);
+                displayResult.setTitle(title).setMessage("You Rated this tweet a " + result + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                displayResult.create();
+                displayResult.show();
+            }
 
         }
     }
