@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Connection">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/TwitWorld/libs/Connection.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
