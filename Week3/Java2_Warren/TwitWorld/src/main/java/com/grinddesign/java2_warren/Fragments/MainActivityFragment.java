@@ -148,6 +148,8 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         Log.i("RETAINER", String.valueOf(MainActivity.broken));
         fraggle.setRetainInstance(true);
     }
+
+
 }
 
 
