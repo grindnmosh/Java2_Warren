@@ -129,6 +129,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         }
     }
 
+    /**
+     * This Method recieves the return intent and populates it in an Alert Box
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
