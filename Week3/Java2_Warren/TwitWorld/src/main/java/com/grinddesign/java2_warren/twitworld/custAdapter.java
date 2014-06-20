@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.grinddesign.java2_warren.Fragments.MainActivityFragment;
 import com.loopj.android.image.SmartImageView;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 public class custAdapter extends ArrayAdapter<String> {
 
     private Context context;
-    private ArrayList<String> arrayLister  = MainActivity.testArray;
+    private ArrayList<String> arrayLister  = MainActivityFragment.testArray;
     public custAdapter(Context context, int resource, ArrayList<String> arrayLister) {
 
         super(context, resource, arrayLister);
@@ -45,10 +46,10 @@ public class custAdapter extends ArrayAdapter<String> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         Log.i("cust", "adapter");
 
-        String i = MainActivity.image.get(position);
+        String i = MainActivityFragment.image.get(position);
         String s = arrayLister.get(position);
-        String d = MainActivity.dateLife.get(position);
-        String id = MainActivity.twitId.get(position);
+        String d = MainActivityFragment.dateLife.get(position);
+        String id = MainActivityFragment.twitId.get(position);
 
 
 

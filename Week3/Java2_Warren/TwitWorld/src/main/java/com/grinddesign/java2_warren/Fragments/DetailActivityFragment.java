@@ -154,11 +154,13 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     @Override
     public void onSaveInstanceState(Bundle outState) {
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
-        outState.putString("detail_message", breakDown.toString());
-        Log.i("RETAIN", outState.toString());
-        MainActivity.broken = outState;
-        Log.i("RETAINER", String.valueOf(MainActivity.broken));
-        fragment.setRetainInstance(true);
+        if (breakDown != null) {
+            outState.putString("detail_message", breakDown.toString());
+            Log.i("RETAIN", outState.toString());
+            MainActivity.broken = outState;
+            Log.i("RETAINER", String.valueOf(MainActivity.broken));
+            fragment.setRetainInstance(true);
+        }
 
     }
 
@@ -172,7 +174,6 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
         parentActivity1 = (grind) activity;
         parentActivity2 = (face) activity;
         parentActivity3 = (beRated) activity;
-        //parentActivity4 = (rater) activity;
     }
 
     /**

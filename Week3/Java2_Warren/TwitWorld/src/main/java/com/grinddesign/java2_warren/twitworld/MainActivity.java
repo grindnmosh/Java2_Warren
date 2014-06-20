@@ -14,8 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
@@ -30,7 +28,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 /**
  * Author:  Robert Warren
@@ -47,13 +44,9 @@ import java.util.ArrayList;
 public class MainActivity extends Activity implements MainActivityFragment.onListClicked, DetailActivityFragment.grind, DetailActivityFragment.face, DetailActivityFragment.beRated  {
 
 
-    public static ArrayList<String> testArray;
-    public static ArrayList<String> dateLife;
-    public static ArrayList<String> image;
-    public static ArrayList<String> twitId;
-    public static ArrayAdapter<String> mainListAdapter;
-    public static JSONArray goldenArray = new JSONArray();
+
     public static Bundle broken;
+    public static Bundle mainLove;
     Context thisHere = this;
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
@@ -72,23 +65,8 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_frag);
+
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
-
-        testArray = new ArrayList<String>();
-        dateLife = new ArrayList<String>();
-        image = new ArrayList<String>();
-        twitId = new ArrayList<String>();
-
-        final ListView lv = (ListView) findViewById(R.id.tList);
-
-        //create adapter calling on the dynamic array from FeedMe Class // this will be dynamic data in week 3 from the API
-        mainListAdapter = new custAdapter(thisHere, R.layout.item_cell, testArray);
-
-
-        //load adapter into listview
-        lv.setAdapter(mainListAdapter);
-
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 
 
@@ -98,13 +76,15 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         if( savedInstanceState != null ) {
 
 
-            String reloadString = broken.getString("detail_message");
-            fragment.loadItUp(reloadString);
+            if (broken != null) {
+                String reloadString = broken.getString("detail_message");
+                fragment.loadItUp(reloadString);
+            }
 
             //data from saved instance
             //String reloadString = savedInstanceState.getString("detail_message");
 
-            String passerBy = savedInstanceState.getString("message");
+            String passerBy = mainLove.getString("message");
             try {
                 JSONArray readThatSucker = new JSONArray(passerBy);
                 Log.i("readItAgain", readThatSucker.toString());
@@ -123,8 +103,11 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                 Connection con = new Connection(this);
                 con.connection();
 
-                //call method to start my class
-                getData();
+                //This creates my intent and starts my service.
+                Messenger serviceMessenger = new Messenger(tHand);
+                Intent intent = new Intent(thisHere, TIntServ.class);
+                intent.putExtra("messenger", serviceMessenger);
+                startService(intent);
             }
             else {
                 File file = thisHere.getFileStreamPath(fileName);
@@ -144,24 +127,33 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
             }
         }
-
-
-
-
-
-
     }
 
-
-    /**
-     * This Method handles the auto saving of the current instance to handle device stops/reloads so as not to reload data from web everytime
-     */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("message", goldenArray.toString());
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            Log.i("BITEONE", "TEST");
+            String result = data.getStringExtra("result");
+            String title = "Robert's Tweet Rating by you";
+            Log.i("RESULT", result);
+            //create alert to display info passed back in the format of my choosing
+            AlertDialog.Builder displayResult = new AlertDialog.Builder(thisHere);
+            displayResult.setTitle(title).setMessage("You Rated this tweet a " + result + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            displayResult.create();
+            displayResult.show();
+
+        }
     }
 
+    /**********************************************************************************************************************************************************************************************************************************
+     * Interface implementations from fragments
+     */
 
     /**
      * This Method handles loading of data based on item selected from the listview
@@ -172,68 +164,23 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
 
+        if (fragment != null && fragment.isInLayout()) {
 
-            if (fragment != null && fragment.isInLayout()) {
-
-                fragment.loadItUp(str);
-                Log.i("WILDMAN", str);
-            }
-            else {
-
-                startResultActivity(str);
-                Log.i("WILDMAN", str);
-            }
-
-
-    }
-
-    /**
-     * This method handles the passing and loading of the detail view in Portrait
-     */
-    public void startResultActivity(String str) {
-        //Log.i("Click It", str);
-        Intent detailPass = new Intent(thisHere, DetailActivity.class);
-        Log.i("Cray Cray", str);
-        detailPass.putExtra("file name", str);
-        Log.i("Cray Cray", detailPass.toString());
-        startActivityForResult(detailPass, 1);
-    }
-
-
-    /**
-     * This method creates my intent and starts my service.
-     */
-    public void getData() {
-        Messenger serviceMessenger = new Messenger(tHand);
-        Intent intent = new Intent(thisHere, TIntServ.class);
-        intent.putExtra("messenger", serviceMessenger);
-        startService(intent);
-
-
-    }
-
-    /**
-     * This method gathers the information passed back about the tweet rating from the detail page
-     */
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
-                String result = data.getStringExtra("result");
-                String title = "Robert's Tweet Rating by you";
-                Log.i("RESULT", result);
-                //create alert to display info passed back in the format of my choosing
-                AlertDialog.Builder displayResult = new AlertDialog.Builder(this);
-                displayResult.setTitle(title).setMessage("You Rated this tweet a " + result + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                displayResult.create();
-                displayResult.show();
-
-            }
+            fragment.loadItUp(str);
+            Log.i("WILDMAN", str);
         }
+        else {
+
+            //Log.i("Click It", str);
+            Intent detailPass = new Intent(thisHere, DetailActivity.class);
+            Log.i("Cray Cray", str);
+            detailPass.putExtra("file name", str);
+            Log.i("Cray Cray", detailPass.toString());
+            startActivityForResult(detailPass, 1);
+            Log.i("WILDMAN", str);
+        }
+
+
     }
 
 
@@ -264,9 +211,10 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
      */
     @Override
     public void starryEyes(String str) {
-
         String title = "Robert's Tweet Rating by you";
-        AlertDialog.Builder displayResult = new AlertDialog.Builder(this);
+        Log.i("RESULT", str);
+        //create alert to display info passed back in the format of my choosing
+        AlertDialog.Builder displayResult = new AlertDialog.Builder(thisHere);
         displayResult.setTitle(title).setMessage("You Rated this tweet a " + str + " and we thank you for taking the time to rate our tweet").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -275,11 +223,12 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         });
         displayResult.create();
         displayResult.show();
-        //grabby(RESULT_OK, returnIntent);
     }
 
 
-
+    /********************************************************************************************************************************************************************************************************************
+     * end of interface implementations from fragments
+     */
 
     /**
      * This is my inner class where I run my handler to handle my data that is returned from the file.
@@ -292,7 +241,10 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
         public HandleMe(MainActivity activity) {
             activityPass = new WeakReference<MainActivity>(activity);
+
         }
+
+
 
         @Override
         public void handleMessage(Message msg) {
@@ -337,7 +289,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         public void updateListData(JSONArray readIt) {
             try {
                 MainActivity actOnIt = activityPass.get();
-                actOnIt.goldenArray = readIt;
+                MainActivityFragment.goldenArray = readIt;
                 x_File = FilingCabinet.getInstance();
                 for (int t=0; t<readIt.length(); t++) {
                     //reset stringbuilder each time
@@ -377,13 +329,13 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                     String idStr = tId.toString();
 
                     //assign variables
-                    image.add(urlStr);
-                    Log.i("test", image.toString());
+                    MainActivityFragment.image.add(urlStr);
+                    Log.i("test", MainActivityFragment.image.toString());
                     //assign it to the array for the list adapter
-                    testArray.add(posting);
-                    dateLife.add(pDate);
-                    Log.i("test", dateLife.toString());
-                    twitId.add(idStr);
+                    MainActivityFragment.testArray.add(posting);
+                    MainActivityFragment.dateLife.add(pDate);
+                    Log.i("test", MainActivityFragment.dateLife.toString());
+                    MainActivityFragment.twitId.add(idStr);
 
                     Log.i("test", "enter a ray text");
 
@@ -391,7 +343,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                     //Log.d("this is my array", "arr45: " + MainActivity.image.toString());
                 }
                 //reset list adapter and force reload on listview
-                actOnIt.mainListAdapter.notifyDataSetChanged();
+             MainActivityFragment.mainListAdapter.notifyDataSetChanged();
             } catch (JSONException e) {
                 Log.e("this is a JSON error", e.getMessage());
                 e.printStackTrace();

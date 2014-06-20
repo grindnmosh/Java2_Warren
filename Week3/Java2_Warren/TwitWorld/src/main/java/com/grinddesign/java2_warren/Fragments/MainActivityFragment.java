@@ -2,18 +2,24 @@ package com.grinddesign.java2_warren.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.grinddesign.java2_warren.twitworld.MainActivity;
 import com.grinddesign.java2_warren.twitworld.R;
+import com.grinddesign.java2_warren.twitworld.custAdapter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.util.ArrayList;
 
 /**
  * Author:  Robert Warren
@@ -29,6 +35,16 @@ import org.json.JSONException;
 
 
 public class MainActivityFragment extends Fragment implements AdapterView.OnItemClickListener {
+
+    public static JSONArray goldenArray = new JSONArray();
+    public static ArrayList<String> testArray;
+    public static ArrayList<String> dateLife;
+    public static ArrayList<String> image;
+    public static ArrayList<String> twitId;
+    public static ArrayAdapter<String> mainListAdapter;
+    Context context;
+
+
 
     /**
      * This is the the interface for the main fragment
@@ -53,6 +69,7 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         super.onAttach(activity);
         if (activity instanceof onListClicked) {
             Log.i("Click It", "attached");
+            this.context = activity;
             parentActivity = (onListClicked) activity;
             Log.i("Click It", parentActivity.toString());
         }
@@ -68,6 +85,11 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
 
+        testArray = new ArrayList<String>();
+        dateLife = new ArrayList<String>();
+        image = new ArrayList<String>();
+        twitId = new ArrayList<String>();
+
         final ListView lv = (ListView) view.findViewById(R.id.tList);
 
 
@@ -77,6 +99,17 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         lv.addHeaderView(header, null, false);
 
         lv.setOnItemClickListener(this);
+
+        mainListAdapter = new custAdapter(context, R.layout.item_cell, testArray);
+
+
+        //load adapter into listview
+        lv.setAdapter(mainListAdapter);
+
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+
+
 
 
         return view;
@@ -91,7 +124,8 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         //Log.i("Click It", "Baby");
         String goldenObj = null;
         try {
-            goldenObj = MainActivity.goldenArray.getString(position -1);
+            goldenObj = goldenArray.getString(position -1);
+            Log.i("MADMAN", goldenObj);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -102,5 +136,20 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
 
 
 
-
+    /**
+     * This Method handles the auto saving of the current instance to handle device stops/reloads so as not to reload data from web everytime
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        MainActivityFragment fraggle = (MainActivityFragment) getFragmentManager().findFragmentById(R.id.fragment);
+        outState.putString("message", goldenArray.toString());
+        MainActivity.mainLove = outState;
+        Log.i("RETAINER", String.valueOf(MainActivity.broken));
+        fraggle.setRetainInstance(true);
+    }
 }
+
+
+
+
