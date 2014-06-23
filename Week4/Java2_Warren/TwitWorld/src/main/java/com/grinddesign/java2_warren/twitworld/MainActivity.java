@@ -149,7 +149,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
             case R.id.menuPreferences:
                 //openSettings();
                 return true;
-            case R.id.menuAbout:
+            case R.id.menuFavorite:
                 //openSettings();
                 return true;
             default:

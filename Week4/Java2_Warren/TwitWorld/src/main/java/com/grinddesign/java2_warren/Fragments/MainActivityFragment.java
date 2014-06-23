@@ -106,17 +106,16 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         //load adapter into listview
         lv.setAdapter(mainListAdapter);
 
-
-
+        lv.setTextFilterEnabled(true);
 
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 
 
-
-
         return view;
     }
+
+
 
 
     /**
