@@ -11,5 +11,6 @@
     <string name="fbButt"> GD FB</string>
     <string name="det_name">Twit Details</string>
     <string name="submit">Send</string>
+    <string name ="action_search">Search</string>
 
 </resources>

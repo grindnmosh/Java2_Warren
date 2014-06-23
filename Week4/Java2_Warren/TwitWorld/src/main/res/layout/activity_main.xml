@@ -6,7 +6,8 @@
     tools:context=".MainActivity"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:descendantFocusability="blocksDescendants" >
+    android:descendantFocusability="blocksDescendants"
+    android:baselineAligned="true">
 
 
 
