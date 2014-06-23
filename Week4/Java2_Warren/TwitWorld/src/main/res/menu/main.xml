@@ -7,8 +7,14 @@
         android:title="@string/action_search"
         android:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:showAsAction="never" />
+    <item android:id="@+id/menuAbout"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/menu_about"
+        android:showAsAction="ifRoom" />
+
+    <item android:id="@+id/menuPreferences"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/menu_preferences"
+        android:showAsAction="ifRoom"/>
 
 </menu>

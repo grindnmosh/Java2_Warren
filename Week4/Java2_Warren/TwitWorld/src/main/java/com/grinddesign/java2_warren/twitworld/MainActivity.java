@@ -146,13 +146,18 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
             case R.id.action_search:
                 //openSearch();
                 return true;
-            case R.id.action_settings:
+            case R.id.menuPreferences:
+                //openSettings();
+                return true;
+            case R.id.menuAbout:
                 //openSettings();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
 
     /**

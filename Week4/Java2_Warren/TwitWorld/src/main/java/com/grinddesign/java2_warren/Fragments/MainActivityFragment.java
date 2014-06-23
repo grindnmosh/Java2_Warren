@@ -106,6 +106,9 @@ public class MainActivityFragment extends Fragment implements AdapterView.OnItem
         //load adapter into listview
         lv.setAdapter(mainListAdapter);
 
+
+
+
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 
