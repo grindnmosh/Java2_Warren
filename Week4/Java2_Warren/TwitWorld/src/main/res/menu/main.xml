@@ -15,6 +15,7 @@
     <item android:id="@+id/menuPreferences"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/menu_preferences"
-        android:showAsAction="ifRoom"/>
+        android:alphabeticShortcut="b"
+        android:showAsAction="withText" />
 
 </menu>
