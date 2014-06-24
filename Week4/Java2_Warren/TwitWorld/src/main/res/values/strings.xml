@@ -14,5 +14,6 @@
     <string name ="action_search">Search</string>
     <string name ="menu_preferences">Preferences</string>
     <string name ="menu_fav">Favorite</string>
+    <string name ="menu_about">Info</string>
 
 </resources>

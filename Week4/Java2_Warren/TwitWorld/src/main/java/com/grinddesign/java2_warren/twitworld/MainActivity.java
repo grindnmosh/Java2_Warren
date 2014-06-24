@@ -3,6 +3,8 @@ package com.grinddesign.java2_warren.twitworld;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -55,7 +58,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     static String fileName = "string_from_twitter";
     final HandleMe tHand = new HandleMe(this);
 
-
+    public enum DialogType {SEARCH, PREFERENCES, FAVORITES, ABOUT}
 
     /**
      *
@@ -132,6 +135,11 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         }
     }
 
+    public void launchDialogFragment(DialogType type) {
+        AlertDialogFragment dialogFrag = AlertDialogFragment.newInstance(type);
+        dialogFrag.show(getFragmentManager(), "search_dialog");
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
@@ -144,13 +152,16 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_search:
-                //openSearch();
+                launchDialogFragment(DialogType.SEARCH);
                 return true;
             case R.id.menuPreferences:
-                //openSettings();
+                launchDialogFragment(DialogType.PREFERENCES);
                 return true;
             case R.id.menuFavorite:
-                //openSettings();
+                launchDialogFragment(DialogType.FAVORITES);
+                return true;
+            case R.id.menuAbout:
+                launchDialogFragment(DialogType.ABOUT);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -388,6 +399,50 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
 
         }
+
+    }
+
+    public static class AlertDialogFragment extends DialogFragment {
+        public static DialogType type;
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
+            LayoutInflater inflator = getActivity().getLayoutInflater();
+            switch (type) {
+                case SEARCH:
+                    /*alertBuilder.setView(inflator.inflate(R.layout.search_with_input_dialog, null)).setPositiveButton("Search", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AlertDialogFragment.this.getDialog().cancel();
+                        }
+                    });*/
+
+
+                    break;
+                case PREFERENCES:
+                    //Toast.makeText(this, "tapped Preferences", Toast.LENGTH_SHORT).show();
+                    break;
+                case FAVORITES:
+                    break;
+                case ABOUT:
+                    break;
+                default:
+                    break;
+            }
+            return alertBuilder.create();
+        }
+        public static AlertDialogFragment newInstance(DialogType dialogType) {
+            type = dialogType;
+            return new AlertDialogFragment();
+        }
+
 
     }
 

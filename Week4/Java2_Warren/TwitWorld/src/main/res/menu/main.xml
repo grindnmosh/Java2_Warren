@@ -5,12 +5,17 @@
     <item android:id="@+id/action_search"
         android:icon="@drawable/ic_action_search"
         android:title="@string/action_search"
-        android:showAsAction="ifRoom" />
+        android:showAsAction="always" />
+
+    <item android:id="@+id/menuAbout"
+        android:icon="@drawable/ic_action_about"
+        android:title="@string/menu_about"
+        android:showAsAction="always" />
 
     <item android:id="@+id/menuFavorite"
         android:icon="@drawable/ic_action_favorite"
         android:title="@string/menu_fav"
-        android:showAsAction="ifRoom" />
+        android:showAsAction="always" />
 
     <item android:id="@+id/menuPreferences"
         android:title="@string/menu_preferences"
