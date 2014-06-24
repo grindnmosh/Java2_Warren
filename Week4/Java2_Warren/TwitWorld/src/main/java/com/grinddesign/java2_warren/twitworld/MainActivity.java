@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,11 +16,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
@@ -47,7 +50,7 @@ import java.lang.ref.WeakReference;
  * Purpose: This is where all the action happens to actually present the application on the device screen and to direct the traffic of what needs to run and when.
  */
 
-public class MainActivity extends Activity implements MainActivityFragment.onListClicked, DetailActivityFragment.grind, DetailActivityFragment.face, DetailActivityFragment.beRated  {
+public class MainActivity extends Activity implements MainActivityFragment.onListClicked, DetailActivityFragment.grind, DetailActivityFragment.face, DetailActivityFragment.beRated, SearchView.OnQueryTextListener {
 
 
 
@@ -143,17 +146,49 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+
+
+        SearchManager searchManager = (SearchManager) getSystemService( Context.SEARCH_SERVICE );
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(this);
+
         return super.onCreateOptionsMenu(menu);
     }
+
+
+
+    @Override
+    public boolean onQueryTextChange(String newText)
+    {
+        final ListView lv = (ListView) findViewById(R.id.tList);
+        // this is your adapter that will be filtered
+        if (TextUtils.isEmpty(newText))
+        {
+            lv.clearTextFilter();
+        }
+        else
+        {
+            lv.setFilterText(newText);
+            Log.i("text", newText);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_search:
                 Toast.makeText(this, "tapped Search", Toast.LENGTH_SHORT).show();
-                launchDialogFragment(DialogType.SEARCH);
                 break;
             case R.id.menuPreferences:
                 Toast.makeText(this, "tapped Preferences", Toast.LENGTH_SHORT).show();
@@ -163,10 +198,14 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                 Toast.makeText(this, "tapped Favorites", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menuAbout:
-                Intent aboutMeAct = new Intent(thisHere, AboutMe.class);
-                //startActivityForResult(aboutMeAct, 0);
+                //setContentView(R.layout.about_me);
+                Intent aboutMeAct = new Intent(thisHere, AboutMeActivity.class);
+                Log.i("TAPPED OUT", "Reaching For Me");
+                thisHere.startActivity(aboutMeAct);
                 Toast.makeText(this, aboutMeAct.toString(), Toast.LENGTH_SHORT).show();
                 break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
@@ -414,22 +453,6 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflator = getActivity().getLayoutInflater();
             switch (type) {
-                case SEARCH:
-                    /*alertBuilder.setView(inflator.inflate(R.layout.search_with_input_dialog, null)).setPositiveButton("Search", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            AlertDialogFragment.this.getDialog().cancel();
-                        }
-                    });*/
-
-
-                    break;
                 case PREFERENCES:
 
                     break;

@@ -2,6 +2,7 @@ package com.grinddesign.java2_warren.twitworld;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
 /**
  * Author:  Robert Warren
@@ -14,11 +15,12 @@ import android.os.Bundle;
  * <p/>
  * Purpose: ${Comments_Here}
  */
-public class AboutMe extends Activity {
+public class AboutMeActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("TAPPED OUT", "reached About Me");
         setContentView(R.layout.about_me);
 
 
