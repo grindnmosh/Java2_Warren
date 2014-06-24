@@ -152,20 +152,23 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_search:
+                Toast.makeText(this, "tapped Search", Toast.LENGTH_SHORT).show();
                 launchDialogFragment(DialogType.SEARCH);
-                return true;
+                break;
             case R.id.menuPreferences:
+                Toast.makeText(this, "tapped Preferences", Toast.LENGTH_SHORT).show();
                 launchDialogFragment(DialogType.PREFERENCES);
-                return true;
+                break;
             case R.id.menuFavorite:
-                launchDialogFragment(DialogType.FAVORITES);
-                return true;
+                Toast.makeText(this, "tapped Favorites", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.menuAbout:
-                launchDialogFragment(DialogType.ABOUT);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                Intent aboutMeAct = new Intent(thisHere, AboutMe.class);
+                //startActivityForResult(aboutMeAct, 0);
+                Toast.makeText(this, aboutMeAct.toString(), Toast.LENGTH_SHORT).show();
+                break;
         }
+        return true;
     }
 
 
@@ -403,6 +406,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     }
 
     public static class AlertDialogFragment extends DialogFragment {
+
         public static DialogType type;
 
         @Override
@@ -427,12 +431,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
                     break;
                 case PREFERENCES:
-                    //Toast.makeText(this, "tapped Preferences", Toast.LENGTH_SHORT).show();
+
                     break;
-                case FAVORITES:
-                    break;
-                case ABOUT:
-                    break;
+
                 default:
                     break;
             }
