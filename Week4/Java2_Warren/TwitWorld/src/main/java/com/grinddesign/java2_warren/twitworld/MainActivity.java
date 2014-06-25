@@ -67,6 +67,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     static String fileName = "string_from_twitter";
     final HandleMe tHand = new HandleMe(this);
     SharedPreferences sharedpreferences;
+    public static SharedPreferences preferences;
     public static Editor edit;
     public static TextView userlicious;
 
@@ -96,7 +97,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         userlicious = (TextView) findViewById(R.id.user);
 
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(thisHere);
+        preferences = PreferenceManager.getDefaultSharedPreferences(thisHere);
         edit = preferences.edit();
         if (preferences.getString("username", "").isEmpty()) {
             Log.i("PREFTEST", "ENTERED");
@@ -508,7 +509,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                                         Log.i("AMICLICK1A", edit.toString());
                                         Log.i("AMIHERECLICK2", "YESSSSSSSSSSSSSSSSSSSSSSSSSSSS");
                                         edit.apply();
-
+                                        userlicious.setText("Logged In As " + preferences.getString("username", ""));
                                     }
                                 }
                             })
