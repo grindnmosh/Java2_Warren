@@ -16,6 +16,7 @@ import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 import com.grinddesign.java2_warren.twitworld.MainActivity;
 import com.grinddesign.java2_warren.twitworld.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,7 +46,7 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     String result = null;
     Button sub;
     String fileName = "starry_night";
-    static FilingCabinet s_File;
+    FilingCabinet s_File;
     Context context;
 
 
@@ -77,7 +78,6 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_detail, container, false);
-
 
 
         rb = (RatingBar) view.findViewById(R.id.rateFeed);
@@ -196,16 +196,34 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
 
 
+
+
         sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String saveMe = "Twitter ID " + tId.getText() + " was ranked " + rating + " Stars";
-                Log.i("SAVEDME", saveMe);
-                //s_File.writeItUp(context, fileName, saveMe);
+
+                try {
+                    saveItAll();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 parentActivity3.starryEyes(result);
 
             }
         });
+    }
+
+    private void saveItAll() throws JSONException {
+        s_File = FilingCabinet.getInstance();
+        String saveMe = "Twitter ID " + tId.getText() + " was ranked " + result + " Stars";
+        Log.i("SAVEDME", saveMe);
+        JSONObject trouble = new JSONObject();
+        trouble.put("starry", saveMe);
+        JSONArray pass = new JSONArray();
+        pass.put(trouble);
+        Log.i("TROUBLE", pass.toString());
+
+        s_File.writeItUp(context, fileName, pass.toString());
     }
 
 

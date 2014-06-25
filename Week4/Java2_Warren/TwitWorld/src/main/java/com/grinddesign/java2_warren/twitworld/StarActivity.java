@@ -36,11 +36,11 @@ public class StarActivity extends Activity {
 
         final ListView lv = (ListView) findViewById(R.id.tList);
 
-        //mainListAdapter = new custAdapter(context, R.layout.item_cell, starGrabber);
+        mainListAdapter = new custAdapter(context, R.layout.item_cell, starGrabber);
 
 
         //load adapter into listview
-        //lv.setAdapter(mainListAdapter);
+        lv.setAdapter(mainListAdapter);
 
 
 
