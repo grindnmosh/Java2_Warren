@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     public static SharedPreferences preferences;
     public static Editor edit;
     public static TextView userlicious;
-
+    JSONArray list;
 
     public enum DialogType {SEARCH, PREFERENCES, FAVORITES, ABOUT}
 
@@ -181,7 +181,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         Log.i("SAVEDME", saveMe);
 
         JSONObject obj = new JSONObject();
-        JSONArray list = new JSONArray();
+        list = new JSONArray();
         JSONObject info = new JSONObject();
         Log.i("SAVEDME", "check 1");
         try {
@@ -254,7 +254,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
             case R.id.menuFavorite:
                 //setContentView(R.layout.activity_starry);
                 Intent StarredOut = new Intent(this, StarActivity.class);
-                startActivity(StarredOut);
+                startActivityForResult(StarredOut, 1);
                 //Toast.makeText(this, StarredOut.toString(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menuAbout:

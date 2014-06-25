@@ -16,7 +16,6 @@ import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 import com.grinddesign.java2_warren.twitworld.MainActivity;
 import com.grinddesign.java2_warren.twitworld.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -206,6 +205,7 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
                 Log.i("BreakingOUT", twitId);
                 MainActivity ma = new MainActivity();
                 ma.saveItAll(twitId, result);
+                parentActivity3.starryEyes(result);
 
             }
         });
