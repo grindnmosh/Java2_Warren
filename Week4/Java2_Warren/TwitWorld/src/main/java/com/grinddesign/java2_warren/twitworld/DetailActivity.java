@@ -1,6 +1,7 @@
 package com.grinddesign.java2_warren.twitworld;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
+import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 
 /**
  * Author:  Robert Warren
@@ -21,6 +23,11 @@ import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
  * Purpose: This will be where I create the code for the passed in details from my MainActivity.java and present the details and a rating chart that returns data back to the main activity for each post.
  */
 public class DetailActivity extends Activity implements DetailActivityFragment.grind, DetailActivityFragment.face, DetailActivityFragment.beRated {
+
+    String fileName = "starry_night";
+    static FilingCabinet s_File;
+    Context context;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -69,7 +69,6 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     SharedPreferences sharedpreferences;
     public static Editor edit;
     public static TextView userlicious;
-    public static JSONArray starGrabber;
 
 
     public enum DialogType {SEARCH, PREFERENCES, FAVORITES, ABOUT}
@@ -227,14 +226,16 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                 launchDialogFragment(DialogType.PREFERENCES);
                 break;
             case R.id.menuFavorite:
-
-                Toast.makeText(this, "tapped Favorites", Toast.LENGTH_SHORT).show();
+                //setContentView(R.layout.activity_starry);
+                Intent StarredOut = new Intent(this, StarActivity.class);
+                startActivityForResult(StarredOut, 0);
+                Toast.makeText(this, StarredOut.toString(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menuAbout:
                 //setContentView(R.layout.about_me);
                 Intent aboutMeAct = new Intent(thisHere, AboutMeActivity.class);
                 Log.i("TAPPED OUT", "Reaching For Me");
-                thisHere.startActivity(aboutMeAct);
+                //thisHere.startActivity(aboutMeAct);
                 Toast.makeText(this, aboutMeAct.toString(), Toast.LENGTH_SHORT).show();
                 break;
             default:

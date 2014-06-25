@@ -2,6 +2,7 @@ package com.grinddesign.java2_warren.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,10 +12,10 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.grinddesign.java2_warren.classgroup.FilingCabinet;
 import com.grinddesign.java2_warren.twitworld.MainActivity;
 import com.grinddesign.java2_warren.twitworld.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,6 +44,9 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     TextView txtRatingValue;
     String result = null;
     Button sub;
+    String fileName = "starry_night";
+    static FilingCabinet s_File;
+    Context context;
 
 
     /**
@@ -57,7 +61,7 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     }
 
     public interface beRated {
-        void starryEyes(String str);
+        void starryEyes(String id);
     }
 
     /**
@@ -185,18 +189,17 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
     public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
         //displays rating in text to right of the button
         txtRatingValue.setText(String.valueOf(rating));
-        MainActivity.starGrabber = new JSONArray();
+
         //declare rating into a string
         result = String.valueOf(rating);
-        String id = (String) (tId.getText());
-        Log.i("grab", id);
-        MainActivity.starGrabber.put(id);
-        MainActivity.starGrabber.put(result);
+
+
+
         sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 parentActivity3.starryEyes(result);
+
             }
         });
     }
