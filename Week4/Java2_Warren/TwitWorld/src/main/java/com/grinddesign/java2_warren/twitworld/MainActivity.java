@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.grinddesign.java2_warren.Fragments.DetailActivityFragment;
@@ -64,9 +66,10 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
     final HandleMe tHand = new HandleMe(this);
-    public static EditText username;
-    public static EditText userpass;
-    public static SharedPreferences preferences;
+    SharedPreferences sharedpreferences;
+    public static Editor edit;
+    public static TextView userlicious;
+    public static JSONArray starGrabber;
 
 
     public enum DialogType {SEARCH, PREFERENCES, FAVORITES, ABOUT}
@@ -85,8 +88,27 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
 
-        username = (EditText) findViewById(R.id.username);
-        userpass = (EditText) findViewById(R.id.userpass);
+
+
+        sharedpreferences = getSharedPreferences(fileName, Context.MODE_PRIVATE);
+        Log.i("TESTPREFS", sharedpreferences.toString());
+
+        EditText username = (EditText) findViewById(R.id.username);
+        userlicious = (TextView) findViewById(R.id.user);
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(thisHere);
+        edit = preferences.edit();
+        if (preferences.getString("username", "").isEmpty()) {
+            Log.i("PREFTEST", "ENTERED");
+            edit.putString("username", "guest");
+            edit.apply();
+        }
+
+        else if (!preferences.getString("username", "").isEmpty()) {
+            Log.i("PREFTEST", "ENTERED");
+            userlicious.setText("Logged In As " + preferences.getString("username", ""));
+        }
 
 
 
@@ -205,6 +227,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                 launchDialogFragment(DialogType.PREFERENCES);
                 break;
             case R.id.menuFavorite:
+
                 Toast.makeText(this, "tapped Favorites", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menuAbout:
@@ -455,37 +478,37 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     }
 
     public static class AlertDialogFragment extends DialogFragment {
-        //SharedPreferences preferences;
-        Editor edit;
+
         public static DialogType type;
 
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            Log.i("AMIHERE", "YESSSSSSSSSSSSSSSSSSSSSSSSSSSS");
             //final ArrayList<String> edit = new ArrayList<String>();
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflator = getActivity().getLayoutInflater();
+            Log.i("AMIHERE2", "YESSSSSSSSSSSSSSSSSSSSSSSSSSSS");
             switch (type) {
                 case PREFERENCES:
                     alertBuilder.setView(inflator.inflate(R.layout.login_dialog, null))
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
+
+
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
-                                    if (username != null) {
-                                        edit.putString("username", username.getText().toString());
-                                        Log.i("USERNAME", edit.toString());
-                                    }
+                                    Dialog dialogView = getDialog();
+                                    EditText user = (EditText) dialogView.findViewById(R.id.username);
+                                    Log.i("AMIHERECLICK", "YESSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                                    if (user != null) {
 
-                                    if (userpass != null) {
-                                        edit.putString("password", userpass.getText().toString());
-                                        Log.i("PASSWORD", edit.toString());
-                                    }
-                                    if (username != null && userpass != null) {
-                                        edit.commit();
-                                    }
+                                        edit.putString("username", user.getText().toString());
+                                        Log.i("AMICLICK1A", edit.toString());
+                                        Log.i("AMIHERECLICK2", "YESSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                                        edit.apply();
 
-
+                                    }
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -495,6 +518,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
                                     AlertDialogFragment.this.getDialog().cancel();
                                 }
                             });
+                    //Toast.makeText(MainActivity.this, "username = " + preferences.getString("username", ""), Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;

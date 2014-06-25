@@ -17,5 +17,9 @@
     <string name ="menu_about">Info</string>
     <string name="search_hint">Search for words in tweets</string>
     <string name="search_name">Search Results</string>
+    <string name="user">enter user name</string>
+    <string name ="usern">Username: </string>
+    <string name="pass">*****</string>
+    <string name="passw">Password: </string>
 
 </resources>

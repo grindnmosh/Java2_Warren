@@ -42,6 +42,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Static Text File"
-        android:id="@+id/textView5"
+        android:id="@+id/user"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
