@@ -9,6 +9,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -37,6 +39,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+
+import static android.content.SharedPreferences.Editor;
 
 /**
  * Author:  Robert Warren
@@ -60,6 +64,10 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
     final HandleMe tHand = new HandleMe(this);
+    public static EditText username;
+    public static EditText userpass;
+    public static SharedPreferences preferences;
+
 
     public enum DialogType {SEARCH, PREFERENCES, FAVORITES, ABOUT}
 
@@ -77,6 +85,8 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
 
+        username = (EditText) findViewById(R.id.username);
+        userpass = (EditText) findViewById(R.id.userpass);
 
 
 
@@ -445,18 +455,47 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     }
 
     public static class AlertDialogFragment extends DialogFragment {
-
+        //SharedPreferences preferences;
+        Editor edit;
         public static DialogType type;
+
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            //final ArrayList<String> edit = new ArrayList<String>();
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflator = getActivity().getLayoutInflater();
             switch (type) {
                 case PREFERENCES:
+                    alertBuilder.setView(inflator.inflate(R.layout.login_dialog, null))
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    if (username != null) {
+                                        edit.putString("username", username.getText().toString());
+                                        Log.i("USERNAME", edit.toString());
+                                    }
+
+                                    if (userpass != null) {
+                                        edit.putString("password", userpass.getText().toString());
+                                        Log.i("PASSWORD", edit.toString());
+                                    }
+                                    if (username != null && userpass != null) {
+                                        edit.commit();
+                                    }
+
+
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    AlertDialogFragment.this.getDialog().cancel();
+                                }
+                            });
                     break;
-
                 default:
                     break;
             }
