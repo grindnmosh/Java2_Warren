@@ -27,6 +27,7 @@ public class StarActivity extends Activity {
 
 
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_starry);
 
@@ -35,16 +36,19 @@ public class StarActivity extends Activity {
 
         final ListView lv = (ListView) findViewById(R.id.tList);
 
-        mainListAdapter = new custAdapter(context, R.layout.item_cell, starGrabber);
+        //mainListAdapter = new custAdapter(context, R.layout.item_cell, starGrabber);
 
 
         //load adapter into listview
-        lv.setAdapter(mainListAdapter);
-
-        lv.setTextFilterEnabled(true);
-
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        //lv.setAdapter(mainListAdapter);
 
 
+
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

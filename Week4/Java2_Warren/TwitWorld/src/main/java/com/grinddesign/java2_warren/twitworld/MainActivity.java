@@ -90,6 +90,8 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
 
 
+
+
         sharedpreferences = getSharedPreferences(fileName, Context.MODE_PRIVATE);
         Log.i("TESTPREFS", sharedpreferences.toString());
 
@@ -180,7 +182,6 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         // Inflate the menu items for use in the action bar
         getMenuInflater().inflate(R.menu.main, menu);
 
-
         SearchManager searchManager = (SearchManager) getSystemService( Context.SEARCH_SERVICE );
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 
@@ -229,15 +230,15 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
             case R.id.menuFavorite:
                 //setContentView(R.layout.activity_starry);
                 Intent StarredOut = new Intent(this, StarActivity.class);
-                startActivityForResult(StarredOut, 0);
-                Toast.makeText(this, StarredOut.toString(), Toast.LENGTH_SHORT).show();
+                startActivity(StarredOut);
+                //Toast.makeText(this, StarredOut.toString(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menuAbout:
                 //setContentView(R.layout.about_me);
                 Intent aboutMeAct = new Intent(thisHere, AboutMeActivity.class);
                 Log.i("TAPPED OUT", "Reaching For Me");
-                //thisHere.startActivity(aboutMeAct);
-                Toast.makeText(this, aboutMeAct.toString(), Toast.LENGTH_SHORT).show();
+                thisHere.startActivity(aboutMeAct);
+                //Toast.makeText(this, aboutMeAct.toString(), Toast.LENGTH_SHORT).show();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

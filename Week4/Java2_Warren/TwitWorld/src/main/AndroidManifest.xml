@@ -29,6 +29,10 @@
         </activity>
         <activity android:name=".DetailActivity"
             android:label="@string/det_name"/>
+        <activity android:name=".AboutMeActivity"
+            android:label="@string/aboutit"/>
+        <activity android:name=".StarActivity"
+            android:label="@string/starred"/>
 
         <service
             android:name="com.grinddesign.java2_warren.classgroup.TIntServ"

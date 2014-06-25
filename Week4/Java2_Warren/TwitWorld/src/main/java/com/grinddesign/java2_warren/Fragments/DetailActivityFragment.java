@@ -195,9 +195,13 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
 
 
+
         sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String saveMe = "Twitter ID " + tId.getText() + " was ranked " + rating + " Stars";
+                Log.i("SAVEDME", saveMe);
+                //s_File.writeItUp(context, fileName, saveMe);
                 parentActivity3.starryEyes(result);
 
             }

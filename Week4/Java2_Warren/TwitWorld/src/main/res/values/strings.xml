@@ -21,5 +21,7 @@
     <string name ="usern">Username: </string>
     <string name="pass">*****</string>
     <string name="passw">Password: </string>
+    <string name="aboutit">About This</string>
+    <string name="starred">Star Ratings</string>
 
 </resources>
