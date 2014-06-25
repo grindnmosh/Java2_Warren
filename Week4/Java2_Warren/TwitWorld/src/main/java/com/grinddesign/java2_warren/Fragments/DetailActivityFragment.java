@@ -202,30 +202,12 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
             @Override
             public void onClick(View v) {
 
-                try {
-                    saveItAll();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                parentActivity3.starryEyes(result);
+                String twitId = (String) tId.getText();
+                Log.i("BreakingOUT", twitId);
+                MainActivity ma = new MainActivity();
+                ma.saveItAll(twitId, result);
 
             }
         });
     }
-
-    private void saveItAll() throws JSONException {
-        s_File = FilingCabinet.getInstance();
-        String saveMe = "Twitter ID " + tId.getText() + " was ranked " + result + " Stars";
-        Log.i("SAVEDME", saveMe);
-        JSONObject trouble = new JSONObject();
-        trouble.put("starry", saveMe);
-        JSONArray pass = new JSONArray();
-        pass.put(trouble);
-        Log.i("TROUBLE", pass.toString());
-
-        s_File.writeItUp(context, fileName, pass.toString());
-    }
-
-
-
 }

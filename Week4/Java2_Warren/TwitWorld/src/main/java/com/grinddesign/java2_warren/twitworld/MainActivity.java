@@ -172,6 +172,30 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         }
     }
 
+    public void saveItAll(String tId, String result) {
+
+        //s_File = FilingCabinet.getInstance();
+
+        String saveMe = "Twitter ID " + tId + " was ranked " + result + " Stars";
+
+        Log.i("SAVEDME", saveMe);
+
+        JSONObject obj = new JSONObject();
+        JSONArray list = new JSONArray();
+        JSONObject info = new JSONObject();
+        Log.i("SAVEDME", "check 1");
+        try {
+            info.put("stars", saveMe);
+            list.put(info);
+            obj.put("starryNights", list);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.i("SAVEDME", list.toString());
+
+        //FilingCabinet.getInstance().writeItUp(thisHere, "starry_night", list.toString());
+    }
+
     public void launchDialogFragment(DialogType type) {
         AlertDialogFragment dialogFrag = AlertDialogFragment.newInstance(type);
         dialogFrag.show(getFragmentManager(), "search_dialog");
