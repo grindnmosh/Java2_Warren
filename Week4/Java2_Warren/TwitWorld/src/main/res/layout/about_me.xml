@@ -3,13 +3,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     android:id="@+id/staticxml">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Robert Warren"
+        android:text="@string/name"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal" />
 
@@ -17,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Java 2 Week 4"
+        android:text="@string/classtime"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal" />
 
@@ -25,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Term 1406"
+        android:text="@string/term"
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal" />
 
@@ -33,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Instructor: Sherry Dubin"
+        android:text="@string/instructor"
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal" />
 
@@ -41,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Static Text File"
+        android:text="@string/atatic"
         android:id="@+id/user"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

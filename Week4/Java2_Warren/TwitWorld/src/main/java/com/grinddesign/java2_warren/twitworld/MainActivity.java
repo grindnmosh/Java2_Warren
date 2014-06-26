@@ -193,7 +193,11 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         }
         Log.i("SAVEDME", list.toString());
 
-        //FilingCabinet.getInstance().writeItUp(thisHere, "starry_night", list.toString());
+        try {
+            FilingCabinet.getInstance().writeItUp(thisHere, "starry_night", list.toString());
+        } catch (Exception e) {
+            Log.i("ERROR IS", e.toString());
+        }
     }
 
     public void launchDialogFragment(DialogType type) {

@@ -23,5 +23,23 @@
     <string name="passw">Password: </string>
     <string name="aboutit">About This</string>
     <string name="starred">Star Ratings</string>
+    <string name="name">Robert Warren</string>
+    <string name="classtime">Java 2 Week 4</string>
+    <string name="term">Term 1406</string>
+    <string name="instructor">Instructor: Sherry Dubin</string>
+    <string name="atatic">Static Text File</string>
+
+    <string-array name="choices_array">
+        <item >Test 1 for function</item>
+        <item >Test 2 for function</item>
+        <item >Test 3 for function</item>
+        <item >Test 4 for function</item>
+        <item >Test 5 for function</item>
+        <item >Test 6 for function</item>
+        <item >Test 7 for function</item>
+        <item >Test 8 for function</item>
+    </string-array>
+
+
 
 </resources>

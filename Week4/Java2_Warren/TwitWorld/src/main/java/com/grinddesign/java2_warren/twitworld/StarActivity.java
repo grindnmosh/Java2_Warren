@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 /**
  * Author:  Robert Warren
  * <p/>
@@ -20,10 +18,11 @@ import java.util.ArrayList;
  * Purpose: ${Comments_Here}
  */
 public class StarActivity extends Activity {
-    public static ArrayList<String> starGrabber;
-    public static ArrayAdapter<String> mainListAdapter;
+    String[] starGrabber;
+    ArrayAdapter<String> mainPistAdapter;
     Context context;
     //static FilingCabinet s_File;
+
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -31,25 +30,21 @@ public class StarActivity extends Activity {
 
         setContentView(R.layout.activity_starry);
 
+        context = this;
 
-        starGrabber = new ArrayList<String>();
+        starGrabber = getResources().getStringArray(R.array.choices_array);
 
-        final ListView lv = (ListView) findViewById(R.id.tList);
+        final ListView lv = (ListView) findViewById(R.id.starlist);
 
-        if (starGrabber != null) {
-            //mainListAdapter = new custAdapter(context, R.layout.item_cell, starGrabber);
+        mainPistAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1,  starGrabber);
 
+        //load adapter into listview
+        lv.setAdapter(mainPistAdapter);
 
-            //load adapter into listview
-            //lv.setAdapter(mainListAdapter);
-        }
 
 
 
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+
 }
