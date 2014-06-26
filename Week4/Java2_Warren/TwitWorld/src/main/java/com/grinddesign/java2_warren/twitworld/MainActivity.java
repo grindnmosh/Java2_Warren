@@ -254,7 +254,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
             case R.id.menuFavorite:
                 //setContentView(R.layout.activity_starry);
                 Intent StarredOut = new Intent(this, StarActivity.class);
-                startActivityForResult(StarredOut, 1);
+                startActivity(StarredOut);
                 //Toast.makeText(this, StarredOut.toString(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menuAbout:
