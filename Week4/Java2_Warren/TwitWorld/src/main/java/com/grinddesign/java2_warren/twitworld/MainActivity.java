@@ -62,7 +62,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
     public static Bundle broken;
     public static Bundle mainLove;
-    Context thisHere = this;
+    Context thisHere;
     static FilingCabinet x_File;
     static String fileName = "string_from_twitter";
     final HandleMe tHand = new HandleMe(this);
@@ -71,6 +71,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
     public static Editor edit;
     public static TextView userlicious;
     JSONArray list;
+    JSONArray oldlist;
 
     public enum DialogType {SEARCH, PREFERENCES, FAVORITES, ABOUT}
 
@@ -86,6 +87,8 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_frag);
 
+        thisHere = this;
+
         DetailActivityFragment fragment = (DetailActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
 
 
@@ -95,7 +98,6 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         sharedpreferences = getSharedPreferences(fileName, Context.MODE_PRIVATE);
         Log.i("TESTPREFS", sharedpreferences.toString());
 
-        EditText username = (EditText) findViewById(R.id.username);
         userlicious = (TextView) findViewById(R.id.user);
 
 
@@ -174,29 +176,56 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
 
     public void saveItAll(String tId, String result) {
 
-        //s_File = FilingCabinet.getInstance();
 
-        String saveMe = "Twitter ID " + tId + " was ranked " + result + " Stars";
+        if (preferences.getString("starred", "").isEmpty()) {
+            String saveMe = tId + " was ranked " + result + " Stars";
 
-        Log.i("SAVEDME", saveMe);
+            Log.i("SAVEDME", saveMe);
 
-        JSONObject obj = new JSONObject();
-        list = new JSONArray();
-        JSONObject info = new JSONObject();
-        Log.i("SAVEDME", "check 1");
-        try {
-            info.put("stars", saveMe);
-            list.put(info);
-            obj.put("starryNights", list);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            JSONObject obj = new JSONObject();
+            list = new JSONArray();
+            JSONObject info = new JSONObject();
+            Log.i("SAVEDME", "check 1");
+            try {
+                info.put("stars", saveMe);
+                list.put(info);
+                obj.put("starryNights", list);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.i("SAVEDME", list.toString());
+
+            edit.putString("starred", list.toString());
+            Log.i("AMICLICK1A", edit.toString());
+            Log.i("AMIHERECLICK2", "YESSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+            edit.apply();
         }
-        Log.i("SAVEDME", list.toString());
+        else {
+            String old = preferences.getString("starred", "");
 
-        try {
-            FilingCabinet.getInstance().writeItUp(thisHere, "starry_night", list.toString());
-        } catch (Exception e) {
-            Log.i("ERROR IS", e.toString());
+            String saveMe = tId + " was ranked " + result + " Stars";
+
+            Log.i("SAVEDME", saveMe);
+
+            JSONObject obj = new JSONObject();
+            list = new JSONArray();
+
+            JSONObject info = new JSONObject();
+            Log.i("SAVEDME", "check 1");
+            try {
+                oldlist = new JSONArray(old);
+                info.put("stars", saveMe);
+                oldlist.put(info);
+                obj.put("starryNights", list);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.i("SAVEDME", list.toString());
+
+            edit.putString("starred", oldlist.toString());
+            Log.i("AMICLICK1A", edit.toString());
+            Log.i("AMIHERECLICK2", "YESSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+            edit.apply();
         }
     }
 
@@ -213,9 +242,11 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         SearchManager searchManager = (SearchManager) getSystemService( Context.SEARCH_SERVICE );
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(this);
-
+        if(null!=searchManager ) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setOnQueryTextListener(this);
+            searchView.setIconifiedByDefault(true);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
