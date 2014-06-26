@@ -191,12 +191,6 @@ public class DetailActivityFragment extends Fragment implements RatingBar.OnRati
 
         //declare rating into a string
         result = String.valueOf(rating);
-
-
-
-
-
-
         sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

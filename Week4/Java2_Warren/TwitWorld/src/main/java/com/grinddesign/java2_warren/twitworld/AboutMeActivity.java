@@ -11,9 +11,9 @@ import android.util.Log;
  * <p/>
  * Package: com.grinddesign.java2_warren.twitworld
  * <p/>
- * File:    ${File_Name}
+ * File:    AboutMeActivity.java
  * <p/>
- * Purpose: ${Comments_Here}
+ * Purpose: This file just loads a static xml using string resources
  */
 public class AboutMeActivity extends Activity {
 

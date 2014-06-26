@@ -174,6 +174,11 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         }
     }
 
+
+    /**
+     * This method gets passed data from the detail fragment and saves it to JSONArray for later use,
+     * It add new items dynamically each time a new one is passed in.
+     */
     public void saveItAll(String tId, String result) {
 
 
@@ -229,11 +234,17 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         }
     }
 
+    /**
+     * This method launches new dialog fragment
+     */
     public void launchDialogFragment(DialogType type) {
         AlertDialogFragment dialogFrag = AlertDialogFragment.newInstance(type);
         dialogFrag.show(getFragmentManager(), "search_dialog");
     }
 
+    /**
+     * This Method inflates the menu on the action bar and defines the search abilities
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
@@ -250,8 +261,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         return super.onCreateOptionsMenu(menu);
     }
 
-
-
+    /**
+     * This method checks for changes in the search box
+     */
     @Override
     public boolean onQueryTextChange(String newText)
     {
@@ -270,28 +282,38 @@ public class MainActivity extends Activity implements MainActivityFragment.onLis
         return true;
     }
 
+    /**
+     * this method checks for a submit of the search.
+     */
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
 
+    /**
+     * This method checks for which menu item is selected and acts accordingly
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
+            //opens search overriding the action bar
             case R.id.action_search:
                 Toast.makeText(this, "tapped Search", Toast.LENGTH_SHORT).show();
                 break;
+            //handles call of dialog fragment to set username
             case R.id.menuPreferences:
                 Toast.makeText(this, "tapped Preferences", Toast.LENGTH_SHORT).show();
                 launchDialogFragment(DialogType.PREFERENCES);
                 break;
+            //launches favorites page which calls data from preferences itself
             case R.id.menuFavorite:
                 //setContentView(R.layout.activity_starry);
                 Intent StarredOut = new Intent(this, StarActivity.class);
                 startActivity(StarredOut);
                 //Toast.makeText(this, StarredOut.toString(), Toast.LENGTH_SHORT).show();
                 break;
+            //launches static about page
             case R.id.menuAbout:
                 //setContentView(R.layout.about_me);
                 Intent aboutMeAct = new Intent(thisHere, AboutMeActivity.class);

@@ -22,13 +22,13 @@ import java.util.ArrayList;
  * <p/>
  * Package: com.grinddesign.java2_warren.twitworld
  * <p/>
- * File:    ${File_Name}
+ * File:    StarActivity.java
  * <p/>
- * Purpose: ${Comments_Here}
+ * Purpose: This page just load a listView identifying any rated tweets by their ID and listing what rating it received.
  */
 public class StarActivity extends Activity {
     ArrayList<String> starGrabber;
-    public static ArrayAdapter<String> mainPistAdapter;
+    public static ArrayAdapter<String> mainListAdapter;
     Context context;
     SharedPreferences sharedpreferences;
     public static SharedPreferences preferences;
@@ -51,7 +51,7 @@ public class StarActivity extends Activity {
 
 
 
-
+        // pulls saved data from preferences
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         edit = preferences.edit();
         if (preferences.getString("starred", "").isEmpty()) {
@@ -73,16 +73,19 @@ public class StarActivity extends Activity {
 
         final ListView lv = (ListView) findViewById(R.id.starlist);
 
-        mainPistAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1,  starGrabber);
+        mainListAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1,  starGrabber);
 
         //load adapter into listview
-        lv.setAdapter(mainPistAdapter);
+        lv.setAdapter(mainListAdapter);
 
 
 
 
     }
 
+    /**
+     * this method pulls and adds data to the array used in the list adapter
+     */
     private void getData(JSONArray bringIt) {
         try {
             for (int t=0; t<bringIt.length(); t++) {
@@ -118,8 +121,6 @@ public class StarActivity extends Activity {
 
                 //Log.d("this is my array", "arr45: " + MainActivity.image.toString());
             }
-            //reset list adapter and force reload on listview
-            //mainPistAdapter.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();
         }
